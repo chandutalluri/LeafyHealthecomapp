@@ -1,40 +1,55 @@
-# LeafyHealth Platform - Coolify Deployment Guide
+# LeafyHealth Platform - Coolify VPS Deployment Guide
 
-## Quick Setup for Coolify
+## Coolify Application Configuration
 
-### Option 1: Use Dockerfile (Recommended)
-1. In Coolify, set **Build Pack** to `dockerfile`
-2. Set **Dockerfile Location** to `Dockerfile.production`
-3. Set **Port** to `8080`
+### Step 1: Create New Application in Coolify
+1. Connect your GitHub repository: `chandutalluri/LeafyHealthecomapp`
+2. Branch: `main`
+3. Build Pack: **Dockerfile** (recommended) or **Nixpacks**
+4. Port: **8080**
 
-### Option 2: Use Nixpacks (Alternative)
-1. In Coolify, set **Build Pack** to `nixpacks`
-2. The `nixpacks.toml` will be automatically detected
-3. Set **Port** to `8080`
-
-## Environment Variables Required
+### Step 2: Environment Variables
+Add these in Coolify's Environment tab:
 ```
 NODE_ENV=production
 PORT=8080
-DATABASE_URL=your_database_url
+DATABASE_URL=postgresql://username:password@host:port/database
 ```
 
-## Health Check Endpoint
-The application provides a health check at: `http://your-domain:8080/health`
+### Step 3: Build Configuration
+- **Dockerfile**: Uses `./Dockerfile` (single-stage, optimized for Coolify)
+- **Nixpacks**: Uses `./nixpacks.toml` (fallback if Docker fails)
+- **Start Command**: `node complete-platform-starter.js`
 
-## Deployment Architecture
-- **Main Server**: Port 8080 (API Gateway)
-- **Frontend Apps**: Integrated within the main platform
-- **Microservices**: 19 backend services (internal only)
-- **Database**: PostgreSQL (external connection required)
+## Application Architecture
+- **Entry Point**: `complete-platform-starter.js`
+- **Main Port**: 8080 (API Gateway)
+- **Health Check**: `GET /health`
+- **Frontend**: 5 Next.js applications (built during deployment)
+- **Backend**: 19 microservices (started internally)
 
-## Build Process
-1. Install dependencies with `npm ci`
-2. Build frontend applications (if workspace configured)
-3. Start integrated platform server
-4. All services accessible through port 8080
+## Deployment Flow
+1. Coolify clones repository
+2. Installs Node.js dependencies (`npm ci`)
+3. Builds frontend applications (`cd frontend && npm run build`)
+4. Starts complete platform on port 8080
+5. All 19 microservices start automatically
+6. API Gateway proxies requests to appropriate services
+
+## Health Monitoring
+- **Health Endpoint**: `http://your-domain/health`
+- **Service Status**: `http://your-domain/api/status`
+- **Available Routes**: Listed in API Gateway response
+
+## Key Benefits
+- Single port (8080) deployment
+- Integrated API Gateway
+- Automatic microservice startup
+- Built-in health checks
+- Optimized for VPS resources
 
 ## Troubleshooting
-- If Nixpacks fails with Node.js version issues, use Dockerfile option
-- Ensure DATABASE_URL is configured in environment variables
-- Platform serves all routes through the main gateway on port 8080
+- **Build fails**: Check DATABASE_URL environment variable
+- **Port issues**: Ensure port 8080 is available
+- **Frontend build errors**: Build continues with warnings (non-blocking)
+- **Memory issues**: Platform optimized for VPS constraints
