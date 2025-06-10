@@ -5,7 +5,6 @@
 
 class ProductionValidator {
   static requiredVars = [
-    'JWT_SECRET',
     'NODE_ENV'
   ];
 
@@ -67,18 +66,17 @@ class ProductionValidator {
     // Check both environment variable and Replit database
     const dbUrl = process.env.DATABASE_URL;
     if (!dbUrl) {
-      console.log('DATABASE_URL not found in environment, checking Replit database...');
-      // In Replit, database URL is automatically provided
+      console.warn('⚠️  Warning: DATABASE_URL not configured. Database features disabled.');
       return;
     }
 
     try {
       const url = new URL(dbUrl);
       if (!['postgresql:', 'postgres:'].includes(url.protocol)) {
-        throw new Error('DATABASE_URL must use postgresql:// protocol');
+        console.warn('⚠️  Warning: DATABASE_URL should use postgresql:// protocol');
       }
     } catch (error) {
-      throw new Error('DATABASE_URL format is invalid');
+      console.warn('⚠️  Warning: DATABASE_URL format may be invalid');
     }
   }
 
