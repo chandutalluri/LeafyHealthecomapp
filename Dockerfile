@@ -13,7 +13,10 @@ RUN npm ci --ignore-scripts && npm cache clean --force
 # Copy application files
 COPY . .
 
-# Build frontend apps without workspace dependencies (standalone builds)
+# Fix workspace dependencies for Docker build
+RUN node build-fix-workspace-deps.js
+
+# Build frontend apps (workspace dependencies removed)
 RUN cd frontend/apps/super-admin && npm install --legacy-peer-deps && npm run build
 RUN cd frontend/apps/admin-portal && npm install --legacy-peer-deps && npm run build  
 RUN cd frontend/apps/ecommerce-web && npm install --legacy-peer-deps && npm run build
