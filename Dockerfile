@@ -33,9 +33,5 @@ EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=10s --start-period=20s --retries=3 \
   CMD curl -f http://localhost:8080/health || exit 1
 
-# Make startup script executable
-COPY start.sh ./
-RUN chmod +x start.sh
-
 ENTRYPOINT ["dumb-init", "--"]
-CMD ["./start.sh"]
+CMD ["node", "complete-platform-starter.js"]
