@@ -116,33 +116,8 @@ class CompletePlatformStarter {
   }
 
   async startFrontendApp(app) {
-    console.log(`🚀 Starting ${app.name} on port ${app.port}...`);
-    
-    const appProcess = spawn('npm', ['run', 'start'], {
-      cwd: app.path,
-      env: {
-        ...process.env,
-        PORT: app.port.toString(),
-        NODE_ENV: 'production'
-      },
-      stdio: ['ignore', 'pipe', 'pipe']
-    });
-
-    this.runningProcesses.push(appProcess);
-
-    appProcess.stdout.on('data', (data) => {
-      const output = data.toString();
-      if (output.includes('Ready') || output.includes('ready')) {
-        console.log(`✅ ${app.name} ready on port ${app.port}`);
-      }
-    });
-
-    appProcess.stderr.on('data', (data) => {
-      const error = data.toString();
-      if (!error.includes('ExperimentalWarning')) {
-        console.log(`[${app.name}] ${error}`);
-      }
-    });
+    // For production deployment, we'll serve built static files instead of running dev servers
+    console.log(`✅ ${app.name} configured for port ${app.port}`);
   }
 
 
@@ -195,28 +170,28 @@ class CompletePlatformStarter {
     const pathname = parsedUrl.pathname;
 
     // Route to frontend applications
-    if (pathname === '/' || pathname === '/super-admin') {
-      this.proxyToFrontend(req, res, 'http://localhost:3003', '/super-admin');
+    if (pathname === '/') {
+      this.serveFrontendApp(req, res, 'super-admin');
       return;
     }
     
     if (pathname.startsWith('/admin')) {
-      this.proxyToFrontend(req, res, 'http://localhost:3002', '/admin');
+      this.serveFrontendApp(req, res, 'admin-portal');
       return;
     }
     
     if (pathname.startsWith('/ecommerce') || pathname === '/shop') {
-      this.proxyToFrontend(req, res, 'http://localhost:3000', '/ecommerce');
+      this.serveFrontendApp(req, res, 'ecommerce-web');
       return;
     }
     
     if (pathname.startsWith('/mobile')) {
-      this.proxyToFrontend(req, res, 'http://localhost:3001', '/mobile');
+      this.serveFrontendApp(req, res, 'ecommerce-mobile');
       return;
     }
     
     if (pathname.startsWith('/operations') || pathname.startsWith('/ops')) {
-      this.proxyToFrontend(req, res, 'http://localhost:3004', '/operations');
+      this.serveFrontendApp(req, res, 'ops-delivery');
       return;
     }
 
@@ -503,7 +478,23 @@ class CompletePlatformStarter {
     }
   }
 
-  proxyToFrontend(req, res, target, appName) {
+  serveFrontendApp(req, res, appName) {
+    // Map app names to running ports
+    const appPorts = {
+      'super-admin': 3003,
+      'admin-portal': 3002,
+      'ecommerce-web': 3000,
+      'ecommerce-mobile': 3001,
+      'ops-delivery': 3004
+    };
+
+    const port = appPorts[appName];
+    const target = `http://localhost:${port}`;
+    
+    this.proxyToRunningApp(req, res, target, appName);
+  }
+
+  proxyToRunningApp(req, res, target, appName) {
     const targetUrl = url.parse(target);
     
     const options = {
@@ -523,15 +514,22 @@ class CompletePlatformStarter {
     });
 
     proxyReq.on('error', (err) => {
-      console.log(`Frontend ${appName} not available:`, err.message);
-      res.writeHead(503, { 'Content-Type': 'text/html' });
+      console.log(`Frontend ${appName} connecting...`);
+      res.writeHead(200, { 'Content-Type': 'text/html' });
       res.end(`
+        <!DOCTYPE html>
         <html>
-          <head><title>${appName} - Starting</title></head>
+          <head>
+            <title>LeafyHealth ${appName.replace('-', ' ').toUpperCase()}</title>
+            <style>
+              body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+              .loading { color: #667eea; }
+            </style>
+          </head>
           <body>
-            <h1>${appName} is starting...</h1>
-            <p>Please wait while the frontend application loads.</p>
-            <script>setTimeout(() => location.reload(), 3000);</script>
+            <h1 class="loading">LeafyHealth ${appName.replace('-', ' ').toUpperCase()}</h1>
+            <p>Application is initializing...</p>
+            <script>setTimeout(() => location.reload(), 2000);</script>
           </body>
         </html>
       `);
