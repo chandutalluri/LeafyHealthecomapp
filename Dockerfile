@@ -13,12 +13,12 @@ RUN npm ci --ignore-scripts && npm cache clean --force
 # Copy application files
 COPY . .
 
-# Build each frontend app individually to avoid workspace conflicts
-RUN cd frontend/apps/super-admin && npm install && npm run build
-RUN cd frontend/apps/admin-portal && npm install && npm run build  
-RUN cd frontend/apps/ecommerce-web && npm install && npm run build
-RUN cd frontend/apps/ecommerce-mobile && npm install && npm run build
-RUN cd frontend/apps/ops-delivery && npm install && npm run build
+# Build frontend apps without workspace dependencies (standalone builds)
+RUN cd frontend/apps/super-admin && npm install --legacy-peer-deps && npm run build
+RUN cd frontend/apps/admin-portal && npm install --legacy-peer-deps && npm run build  
+RUN cd frontend/apps/ecommerce-web && npm install --legacy-peer-deps && npm run build
+RUN cd frontend/apps/ecommerce-mobile && npm install --legacy-peer-deps && npm run build
+RUN cd frontend/apps/ops-delivery && npm install --legacy-peer-deps && npm run build
 
 # Expose all required ports
 EXPOSE 8080 3000 3001 3002 3003 3004
