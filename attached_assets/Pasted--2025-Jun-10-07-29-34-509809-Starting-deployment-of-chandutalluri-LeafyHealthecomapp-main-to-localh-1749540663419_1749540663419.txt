@@ -1,0 +1,327 @@
+
+2025-Jun-10 07:29:34.509809 Starting deployment of chandutalluri/LeafyHealthecomapp:main to localhost.
+2025-Jun-10 07:29:34.630802 Preparing container with helper image: ghcr.io/coollabsio/coolify-helper:1.0.8.
+2025-Jun-10 07:29:34.699614 [CMD]: docker stop --time=30 i800sk8okww400kwkskggkks
+2025-Jun-10 07:29:34.699614 Error response from daemon: No such container: i800sk8okww400kwkskggkks
+2025-Jun-10 07:29:34.768569 [CMD]: docker rm -f i800sk8okww400kwkskggkks
+2025-Jun-10 07:29:34.768569 Error response from daemon: No such container: i800sk8okww400kwkskggkks
+2025-Jun-10 07:29:34.873949 [CMD]: docker run -d --network coolify --name i800sk8okww400kwkskggkks --rm -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/coollabsio/coolify-helper:1.0.8
+2025-Jun-10 07:29:34.873949 77ffdf9ebb6f57591948c5f73ada919e2297104d8690b927aabab35c2350537a
+2025-Jun-10 07:29:36.428409 [CMD]: docker exec i800sk8okww400kwkskggkks bash -c 'GIT_SSH_COMMAND="ssh -o ConnectTimeout=30 -p 22 -o Port=22 -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git ls-remote https://github.com/chandutalluri/LeafyHealthecomapp main'
+2025-Jun-10 07:29:36.428409 74dce173c2b50f03fba29c582b1755b76f34192a	refs/heads/main
+2025-Jun-10 07:29:36.534513 Image not found (awsgk4o4gkkwccgs4ossss0c:74dce173c2b50f03fba29c582b1755b76f34192a). Building new image.
+2025-Jun-10 07:29:36.536593 ----------------------------------------
+2025-Jun-10 07:29:36.537848 Importing chandutalluri/LeafyHealthecomapp:main (commit sha HEAD) to /artifacts/i800sk8okww400kwkskggkks.
+2025-Jun-10 07:29:36.655490 [CMD]: docker exec i800sk8okww400kwkskggkks bash -c 'git clone -b "main" https://github.com/chandutalluri/LeafyHealthecomapp /artifacts/i800sk8okww400kwkskggkks && cd /artifacts/i800sk8okww400kwkskggkks && sed -i "s#git@\(.*\):#https://\1/#g" /artifacts/i800sk8okww400kwkskggkks/.gitmodules || true && cd /artifacts/i800sk8okww400kwkskggkks && GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git submodule update --init --recursive && cd /artifacts/i800sk8okww400kwkskggkks && GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git lfs pull'
+2025-Jun-10 07:29:36.655490 Cloning into '/artifacts/i800sk8okww400kwkskggkks'...
+2025-Jun-10 07:29:38.563405 sed: /artifacts/i800sk8okww400kwkskggkks/.gitmodules: No such file or directory
+2025-Jun-10 07:29:38.967336 [CMD]: docker exec i800sk8okww400kwkskggkks bash -c 'cd /artifacts/i800sk8okww400kwkskggkks && git log -1 74dce173c2b50f03fba29c582b1755b76f34192a --pretty=%B'
+2025-Jun-10 07:29:38.967336 Improve deployment process by addressing build errors in VPS environments
+2025-Jun-10 07:29:38.967336
+2025-Jun-10 07:29:38.967336 Address and resolve build errors encountered during deployment in VPS environments like Coolify.
+2025-Jun-10 07:29:38.967336
+2025-Jun-10 07:29:38.967336 Replit-Commit-Author: Agent
+2025-Jun-10 07:29:38.967336 Replit-Commit-Session-Id: 9b7bf35e-5707-46ec-938a-fab7fd9d7a2b
+2025-Jun-10 07:29:38.967336 Replit-Commit-Screenshot-Url: https://storage.googleapis.com/screenshot-production-us-central1/0a9ef2af-f637-4cf2-a256-180f7492c240/dff78da7-b5ee-4e0b-9a0f-1b62605c523f.jpg
+2025-Jun-10 07:29:39.120965 Generating nixpacks configuration with: nixpacks plan -f toml  /artifacts/i800sk8okww400kwkskggkks
+2025-Jun-10 07:29:39.332161 [CMD]: docker exec i800sk8okww400kwkskggkks bash -c 'nixpacks plan -f toml  /artifacts/i800sk8okww400kwkskggkks'
+2025-Jun-10 07:29:39.332161 providers = []
+2025-Jun-10 07:29:39.332161 buildImage = 'ghcr.io/railwayapp/nixpacks:ubuntu-1741046653'
+2025-Jun-10 07:29:39.332161
+2025-Jun-10 07:29:39.332161 [variables]
+2025-Jun-10 07:29:39.332161 CI = 'true'
+2025-Jun-10 07:29:39.332161 NIXPACKS_METADATA = 'node'
+2025-Jun-10 07:29:39.332161 NODE_ENV = 'production'
+2025-Jun-10 07:29:39.332161 NPM_CONFIG_PRODUCTION = 'false'
+2025-Jun-10 07:29:39.332161 PORT = '8080'
+2025-Jun-10 07:29:39.332161 [phases.build]
+2025-Jun-10 07:29:39.332161 dependsOn = ['install']
+2025-Jun-10 07:29:39.332161 cmds = ['npm run build']
+2025-Jun-10 07:29:39.332161 cacheDirectories = [
+2025-Jun-10 07:29:39.332161 '.next/cache',
+2025-Jun-10 07:29:39.332161 'frontend/apps/admin-portal/.next/cache',
+2025-Jun-10 07:29:39.332161 'frontend/apps/ecommerce-mobile/.next/cache',
+2025-Jun-10 07:29:39.332161 'frontend/apps/ecommerce-web/.next/cache',
+2025-Jun-10 07:29:39.332161 'frontend/apps/ops-delivery/.next/cache',
+2025-Jun-10 07:29:39.332161 'frontend/apps/super-admin/.next/cache',
+2025-Jun-10 07:29:39.332161 'node_modules/.cache',
+2025-Jun-10 07:29:39.332161 ]
+2025-Jun-10 07:29:39.332161
+2025-Jun-10 07:29:39.332161 [phases.install]
+2025-Jun-10 07:29:39.332161 dependsOn = ['setup']
+2025-Jun-10 07:29:39.332161 cmds = ['npm ci']
+2025-Jun-10 07:29:39.332161 cacheDirectories = ['/root/.npm']
+2025-Jun-10 07:29:39.332161 paths = ['/app/node_modules/.bin']
+2025-Jun-10 07:29:39.332161
+2025-Jun-10 07:29:39.332161 [phases.setup]
+2025-Jun-10 07:29:39.332161 nixPkgs = [
+2025-Jun-10 07:29:39.332161 'nodejs-20_x',
+2025-Jun-10 07:29:39.332161 'npm',
+2025-Jun-10 07:29:39.332161 ]
+2025-Jun-10 07:29:39.332161 nixLibs = [
+2025-Jun-10 07:29:39.332161 'gcc-unwrapped',
+2025-Jun-10 07:29:39.332161 'libuuid',
+2025-Jun-10 07:29:39.332161 'libGL',
+2025-Jun-10 07:29:39.332161 ]
+2025-Jun-10 07:29:39.332161 nixOverlays = ['https://github.com/railwayapp/nix-npm-overlay/archive/main.tar.gz']
+2025-Jun-10 07:29:39.332161 nixpkgsArchive = 'ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7'
+2025-Jun-10 07:29:39.332161
+2025-Jun-10 07:29:39.332161 [start]
+2025-Jun-10 07:29:39.332161 cmd = 'node complete-platform-starter.js'
+2025-Jun-10 07:29:39.500286 [CMD]: docker exec i800sk8okww400kwkskggkks bash -c 'nixpacks detect /artifacts/i800sk8okww400kwkskggkks'
+2025-Jun-10 07:29:39.500286 node
+2025-Jun-10 07:29:39.508294 Found application type: node.
+2025-Jun-10 07:29:39.510575 If you need further customization, please check the documentation of Nixpacks: https://nixpacks.com/docs/providers/node
+2025-Jun-10 07:29:39.524461 Final Nixpacks plan: {
+2025-Jun-10 07:29:39.524461 "providers": [],
+2025-Jun-10 07:29:39.524461 "buildImage": "ghcr.io\/railwayapp\/nixpacks:ubuntu-1741046653",
+2025-Jun-10 07:29:39.524461 "variables": {
+2025-Jun-10 07:29:39.524461 "CI": "true",
+2025-Jun-10 07:29:39.524461 "NIXPACKS_METADATA": "node",
+2025-Jun-10 07:29:39.524461 "NODE_ENV": "production",
+2025-Jun-10 07:29:39.524461 "NPM_CONFIG_PRODUCTION": "false",
+2025-Jun-10 07:29:39.524461 "PORT": "8080",
+2025-Jun-10 07:29:39.524461 "SOURCE_COMMIT": "74dce173c2b50f03fba29c582b1755b76f34192a"
+2025-Jun-10 07:29:39.524461 },
+2025-Jun-10 07:29:39.524461 "phases": {
+2025-Jun-10 07:29:39.524461 "build": {
+2025-Jun-10 07:29:39.524461 "dependsOn": [
+2025-Jun-10 07:29:39.524461 "install"
+2025-Jun-10 07:29:39.524461 ],
+2025-Jun-10 07:29:39.524461 "cmds": [
+2025-Jun-10 07:29:39.524461 "npm run build"
+2025-Jun-10 07:29:39.524461 ],
+2025-Jun-10 07:29:39.524461 "cacheDirectories": [
+2025-Jun-10 07:29:39.524461 ".next\/cache",
+2025-Jun-10 07:29:39.524461 "frontend\/apps\/admin-portal\/.next\/cache",
+2025-Jun-10 07:29:39.524461 "frontend\/apps\/ecommerce-mobile\/.next\/cache",
+2025-Jun-10 07:29:39.524461 "frontend\/apps\/ecommerce-web\/.next\/cache",
+2025-Jun-10 07:29:39.524461 "frontend\/apps\/ops-delivery\/.next\/cache",
+2025-Jun-10 07:29:39.524461 "frontend\/apps\/super-admin\/.next\/cache",
+2025-Jun-10 07:29:39.524461 "node_modules\/.cache"
+2025-Jun-10 07:29:39.524461 ]
+2025-Jun-10 07:29:39.524461 },
+2025-Jun-10 07:29:39.524461 "install": {
+2025-Jun-10 07:29:39.524461 "dependsOn": [
+2025-Jun-10 07:29:39.524461 "setup"
+2025-Jun-10 07:29:39.524461 ],
+2025-Jun-10 07:29:39.524461 "cmds": [
+2025-Jun-10 07:29:39.524461 "npm ci"
+2025-Jun-10 07:29:39.524461 ],
+2025-Jun-10 07:29:39.524461 "cacheDirectories": [
+2025-Jun-10 07:29:39.524461 "\/root\/.npm"
+2025-Jun-10 07:29:39.524461 ],
+2025-Jun-10 07:29:39.524461 "paths": [
+2025-Jun-10 07:29:39.524461 "\/app\/node_modules\/.bin"
+2025-Jun-10 07:29:39.524461 ]
+2025-Jun-10 07:29:39.524461 },
+2025-Jun-10 07:29:39.524461 "setup": {
+2025-Jun-10 07:29:39.524461 "nixPkgs": [
+2025-Jun-10 07:29:39.524461 "nodejs-20_x",
+2025-Jun-10 07:29:39.524461 "npm"
+2025-Jun-10 07:29:39.524461 ],
+2025-Jun-10 07:29:39.524461 "nixLibs": [
+2025-Jun-10 07:29:39.524461 "gcc-unwrapped",
+2025-Jun-10 07:29:39.524461 "libuuid",
+2025-Jun-10 07:29:39.524461 "libGL"
+2025-Jun-10 07:29:39.524461 ],
+2025-Jun-10 07:29:39.524461 "nixOverlays": [
+2025-Jun-10 07:29:39.524461 "https:\/\/github.com\/railwayapp\/nix-npm-overlay\/archive\/main.tar.gz"
+2025-Jun-10 07:29:39.524461 ],
+2025-Jun-10 07:29:39.524461 "nixpkgsArchive": "ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7",
+2025-Jun-10 07:29:39.524461 "aptPkgs": [
+2025-Jun-10 07:29:39.524461 "curl",
+2025-Jun-10 07:29:39.524461 "wget"
+2025-Jun-10 07:29:39.524461 ]
+2025-Jun-10 07:29:39.524461 }
+2025-Jun-10 07:29:39.524461 },
+2025-Jun-10 07:29:39.524461 "start": {
+2025-Jun-10 07:29:39.524461 "cmd": "node complete-platform-starter.js"
+2025-Jun-10 07:29:39.524461 }
+2025-Jun-10 07:29:39.524461 }
+2025-Jun-10 07:29:40.201498 ----------------------------------------
+2025-Jun-10 07:29:40.203808 Building docker image started.
+2025-Jun-10 07:29:40.205621 To check the current progress, click on Show Debug Logs.
+2025-Jun-10 07:29:40.584664 [CMD]: docker exec i800sk8okww400kwkskggkks bash -c 'nixpacks build -c /artifacts/thegameplan.json --cache-key 'awsgk4o4gkkwccgs4ossss0c' --no-error-without-start -n awsgk4o4gkkwccgs4ossss0c:74dce173c2b50f03fba29c582b1755b76f34192a /artifacts/i800sk8okww400kwkskggkks -o /artifacts/i800sk8okww400kwkskggkks'
+2025-Jun-10 07:29:40.584664
+2025-Jun-10 07:29:40.584664 ╔═══════════════ Nixpacks v1.34.1 ═══════════════╗
+2025-Jun-10 07:29:40.584664 ║ setup      │ nodejs-20_x, npm, curl, wget      ║
+2025-Jun-10 07:29:40.584664 ║────────────────────────────────────────────────║
+2025-Jun-10 07:29:40.584664 ║ install    │ npm ci                            ║
+2025-Jun-10 07:29:40.584664 ║────────────────────────────────────────────────║
+2025-Jun-10 07:29:40.584664 ║ build      │ npm run build                     ║
+2025-Jun-10 07:29:40.584664 ║────────────────────────────────────────────────║
+2025-Jun-10 07:29:40.584664 ║ start      │ node complete-platform-starter.js ║
+2025-Jun-10 07:29:40.584664 ╚════════════════════════════════════════════════╝
+2025-Jun-10 07:29:40.588000 Saved output to:
+2025-Jun-10 07:29:40.588000 /artifacts/i800sk8okww400kwkskggkks
+2025-Jun-10 07:29:40.822036 [CMD]: docker exec i800sk8okww400kwkskggkks bash -c 'cat /artifacts/build.sh'
+2025-Jun-10 07:29:40.822036 docker build --add-host coolify:10.0.1.5 --add-host coolify-db:10.0.1.3 --add-host coolify-realtime:10.0.1.4 --add-host coolify-redis:10.0.1.2 --network host -f /artifacts/i800sk8okww400kwkskggkks/.nixpacks/Dockerfile --build-arg CI='true' --build-arg NIXPACKS_METADATA='node' --build-arg NODE_ENV='production' --build-arg NPM_CONFIG_PRODUCTION='false' --build-arg PORT='8080' --build-arg SOURCE_COMMIT='74dce173c2b50f03fba29c582b1755b76f34192a' --build-arg 'COOLIFY_URL=http://awsgk4o4gkkwccgs4ossss0c.106.222.233.10.sslip.io' --build-arg 'COOLIFY_FQDN=awsgk4o4gkkwccgs4ossss0c.106.222.233.10.sslip.io' --build-arg 'COOLIFY_BRANCH=main' --build-arg 'COOLIFY_RESOURCE_UUID=awsgk4o4gkkwccgs4ossss0c' --build-arg 'COOLIFY_CONTAINER_NAME=awsgk4o4gkkwccgs4ossss0c-072933708857' --progress plain -t awsgk4o4gkkwccgs4ossss0c:74dce173c2b50f03fba29c582b1755b76f34192a /artifacts/i800sk8okww400kwkskggkks
+2025-Jun-10 07:29:41.254829 [CMD]: docker exec i800sk8okww400kwkskggkks bash -c 'bash /artifacts/build.sh'
+2025-Jun-10 07:29:41.254829 #0 building with "default" instance using docker driver
+2025-Jun-10 07:29:41.254829
+2025-Jun-10 07:29:41.254829 #1 [internal] load build definition from Dockerfile
+2025-Jun-10 07:29:41.254829 #1 transferring dockerfile: 1.94kB done
+2025-Jun-10 07:29:41.254829 #1 DONE 0.0s
+2025-Jun-10 07:29:41.254829
+2025-Jun-10 07:29:41.254829 #2 [internal] load metadata for ghcr.io/railwayapp/nixpacks:ubuntu-1741046653
+2025-Jun-10 07:29:42.298323 #2 DONE 1.2s
+2025-Jun-10 07:29:42.453213
+2025-Jun-10 07:29:42.458298 #3 [internal] load .dockerignore
+2025-Jun-10 07:29:42.458298 #3 transferring context: 838B done
+2025-Jun-10 07:29:42.458298 #3 DONE 0.0s
+2025-Jun-10 07:29:42.458298
+2025-Jun-10 07:29:42.458298 #4 [stage-0  1/11] FROM ghcr.io/railwayapp/nixpacks:ubuntu-1741046653@sha256:ed406b77fb751927991b8655e76c33a4521c4957c2afeab293be7c63c2a373d2
+2025-Jun-10 07:29:42.458298 #4 DONE 0.0s
+2025-Jun-10 07:29:42.458298
+2025-Jun-10 07:29:42.458298 #5 [internal] load build context
+2025-Jun-10 07:29:42.593914 #5 transferring context: 2.55MB 0.2s done
+2025-Jun-10 07:29:42.593914 #5 DONE 0.2s
+2025-Jun-10 07:29:42.593914
+2025-Jun-10 07:29:42.593914 #6 [stage-0  2/11] WORKDIR /app/
+2025-Jun-10 07:29:42.593914 #6 CACHED
+2025-Jun-10 07:29:42.593914
+2025-Jun-10 07:29:42.593914 #7 [stage-0  3/11] COPY .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix
+2025-Jun-10 07:29:42.593914 #7 DONE 0.0s
+2025-Jun-10 07:29:42.715998 #8 [stage-0  4/11] RUN nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d
+2025-Jun-10 07:29:42.715998 #8 0.124 unpacking 'https://github.com/NixOS/nixpkgs/archive/ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.tar.gz' into the Git cache...
+2025-Jun-10 07:30:20.327984 #8 37.74 unpacking 'https://github.com/railwayapp/nix-npm-overlay/archive/main.tar.gz' into the Git cache...
+2025-Jun-10 07:30:21.392269 #8 38.80 installing 'ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7-env'
+2025-Jun-10 07:30:22.059892 #8 39.46 error:
+2025-Jun-10 07:30:22.059892 #8 39.46        … while calling the 'derivationStrict' builtin
+2025-Jun-10 07:30:22.059892 #8 39.46          at <nix/derivation-internal.nix>:37:12:
+2025-Jun-10 07:30:22.059892 #8 39.46            36|
+2025-Jun-10 07:30:22.059892 #8 39.46            37|   strict = derivationStrict drvAttrs;
+2025-Jun-10 07:30:22.059892 #8 39.46              |            ^
+2025-Jun-10 07:30:22.059892 #8 39.46            38|
+2025-Jun-10 07:30:22.059892 #8 39.46
+2025-Jun-10 07:30:22.059892 #8 39.46        … while evaluating derivation 'ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7-env'
+2025-Jun-10 07:30:22.059892 #8 39.46          whose name attribute is located at /nix/store/lwi59jcfwk2lnrakmm1y5vw85hj3n1bi-source/pkgs/stdenv/generic/make-derivation.nix:375:7
+2025-Jun-10 07:30:22.059892 #8 39.46
+2025-Jun-10 07:30:22.059892 #8 39.46        … while evaluating attribute 'passAsFile' of derivation 'ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7-env'
+2025-Jun-10 07:30:22.059892 #8 39.46          at /nix/store/lwi59jcfwk2lnrakmm1y5vw85hj3n1bi-source/pkgs/build-support/trivial-builders/default.nix:60:9:
+2025-Jun-10 07:30:22.059892 #8 39.46            59|         inherit buildCommand name;
+2025-Jun-10 07:30:22.059892 #8 39.46            60|         passAsFile = [ "buildCommand" ]
+2025-Jun-10 07:30:22.059892 #8 39.46              |         ^
+2025-Jun-10 07:30:22.059892 #8 39.46            61|           ++ (derivationArgs.passAsFile or [ ]);
+2025-Jun-10 07:30:22.059892 #8 39.46
+2025-Jun-10 07:30:22.059892 #8 39.46        (stack trace truncated; use '--show-trace' to show the full, detailed trace)
+2025-Jun-10 07:30:22.059892 #8 39.46
+2025-Jun-10 07:30:22.059892 #8 39.46        error: undefined variable 'nodejs-20_x'
+2025-Jun-10 07:30:22.059892 #8 39.46        at /app/.nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix:19:9:
+2025-Jun-10 07:30:22.059892 #8 39.46            18|         '')
+2025-Jun-10 07:30:22.059892 #8 39.46            19|         nodejs-20_x npm
+2025-Jun-10 07:30:22.059892 #8 39.46              |         ^
+2025-Jun-10 07:30:22.059892 #8 39.46            20|       ];
+2025-Jun-10 07:30:22.629608 #8 ERROR: process "/bin/bash -ol pipefail -c nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d" did not complete successfully: exit code: 1
+2025-Jun-10 07:30:22.706898 ------
+2025-Jun-10 07:30:22.706898 > [stage-0  4/11] RUN nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d:
+2025-Jun-10 07:30:22.706898 39.46            61|           ++ (derivationArgs.passAsFile or [ ]);
+2025-Jun-10 07:30:22.706898 39.46
+2025-Jun-10 07:30:22.706898 39.46        (stack trace truncated; use '--show-trace' to show the full, detailed trace)
+2025-Jun-10 07:30:22.706898 39.46
+2025-Jun-10 07:30:22.706898 39.46        error: undefined variable 'nodejs-20_x'
+2025-Jun-10 07:30:22.706898 39.46        at /app/.nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix:19:9:
+2025-Jun-10 07:30:22.706898 39.46            18|         '')
+2025-Jun-10 07:30:22.706898 39.46            19|         nodejs-20_x npm
+2025-Jun-10 07:30:22.706898 39.46              |         ^
+2025-Jun-10 07:30:22.706898 39.46            20|       ];
+2025-Jun-10 07:30:22.706898 ------
+2025-Jun-10 07:30:22.706898
+2025-Jun-10 07:30:22.706898 1 warning found (use docker --debug to expand):
+2025-Jun-10 07:30:22.706898 - UndefinedVar: Usage of undefined variable '$NIXPACKS_PATH' (line 18)
+2025-Jun-10 07:30:22.706898 Dockerfile:8
+2025-Jun-10 07:30:22.706898 --------------------
+2025-Jun-10 07:30:22.706898 6 |
+2025-Jun-10 07:30:22.706898 7 |     COPY .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix
+2025-Jun-10 07:30:22.706898 8 | >>> RUN nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d
+2025-Jun-10 07:30:22.706898 9 |     RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends curl wget
+2025-Jun-10 07:30:22.706898 10 |
+2025-Jun-10 07:30:22.706898 --------------------
+2025-Jun-10 07:30:22.706898 ERROR: failed to solve: process "/bin/bash -ol pipefail -c nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d" did not complete successfully: exit code: 1
+2025-Jun-10 07:30:22.731360 exit status 1
+2025-Jun-10 07:30:22.773004 Oops something is not okay, are you okay? 😢
+2025-Jun-10 07:30:22.781267 #0 building with "default" instance using docker driver
+2025-Jun-10 07:30:22.781267
+2025-Jun-10 07:30:22.781267 #1 [internal] load build definition from Dockerfile
+2025-Jun-10 07:30:22.781267 #1 transferring dockerfile: 1.94kB done
+2025-Jun-10 07:30:22.781267 #1 DONE 0.0s
+2025-Jun-10 07:30:22.781267
+2025-Jun-10 07:30:22.781267 #2 [internal] load metadata for ghcr.io/railwayapp/nixpacks:ubuntu-1741046653
+2025-Jun-10 07:30:22.781267 #2 DONE 1.2s
+2025-Jun-10 07:30:22.781267
+2025-Jun-10 07:30:22.781267 #3 [internal] load .dockerignore
+2025-Jun-10 07:30:22.781267 #3 transferring context: 838B done
+2025-Jun-10 07:30:22.781267 #3 DONE 0.0s
+2025-Jun-10 07:30:22.781267
+2025-Jun-10 07:30:22.781267 #4 [stage-0  1/11] FROM ghcr.io/railwayapp/nixpacks:ubuntu-1741046653@sha256:ed406b77fb751927991b8655e76c33a4521c4957c2afeab293be7c63c2a373d2
+2025-Jun-10 07:30:22.781267 #4 DONE 0.0s
+2025-Jun-10 07:30:22.781267
+2025-Jun-10 07:30:22.781267 #5 [internal] load build context
+2025-Jun-10 07:30:22.781267 #5 transferring context: 2.55MB 0.2s done
+2025-Jun-10 07:30:22.781267 #5 DONE 0.2s
+2025-Jun-10 07:30:22.781267
+2025-Jun-10 07:30:22.781267 #6 [stage-0  2/11] WORKDIR /app/
+2025-Jun-10 07:30:22.781267 #6 CACHED
+2025-Jun-10 07:30:22.781267
+2025-Jun-10 07:30:22.781267 #7 [stage-0  3/11] COPY .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix
+2025-Jun-10 07:30:22.781267 #7 DONE 0.0s
+2025-Jun-10 07:30:22.781267
+2025-Jun-10 07:30:22.781267 #8 [stage-0  4/11] RUN nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d
+2025-Jun-10 07:30:22.781267 #8 0.124 unpacking 'https://github.com/NixOS/nixpkgs/archive/ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.tar.gz' into the Git cache...
+2025-Jun-10 07:30:22.781267 #8 37.74 unpacking 'https://github.com/railwayapp/nix-npm-overlay/archive/main.tar.gz' into the Git cache...
+2025-Jun-10 07:30:22.781267 #8 38.80 installing 'ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7-env'
+2025-Jun-10 07:30:22.781267 #8 39.46 error:
+2025-Jun-10 07:30:22.781267 #8 39.46        … while calling the 'derivationStrict' builtin
+2025-Jun-10 07:30:22.781267 #8 39.46          at <nix/derivation-internal.nix>:37:12:
+2025-Jun-10 07:30:22.781267 #8 39.46            36|
+2025-Jun-10 07:30:22.781267 #8 39.46            37|   strict = derivationStrict drvAttrs;
+2025-Jun-10 07:30:22.781267 #8 39.46              |            ^
+2025-Jun-10 07:30:22.781267 #8 39.46            38|
+2025-Jun-10 07:30:22.781267 #8 39.46
+2025-Jun-10 07:30:22.781267 #8 39.46        … while evaluating derivation 'ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7-env'
+2025-Jun-10 07:30:22.781267 #8 39.46          whose name attribute is located at /nix/store/lwi59jcfwk2lnrakmm1y5vw85hj3n1bi-source/pkgs/stdenv/generic/make-derivation.nix:375:7
+2025-Jun-10 07:30:22.781267 #8 39.46
+2025-Jun-10 07:30:22.781267 #8 39.46        … while evaluating attribute 'passAsFile' of derivation 'ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7-env'
+2025-Jun-10 07:30:22.781267 #8 39.46          at /nix/store/lwi59jcfwk2lnrakmm1y5vw85hj3n1bi-source/pkgs/build-support/trivial-builders/default.nix:60:9:
+2025-Jun-10 07:30:22.781267 #8 39.46            59|         inherit buildCommand name;
+2025-Jun-10 07:30:22.781267 #8 39.46            60|         passAsFile = [ "buildCommand" ]
+2025-Jun-10 07:30:22.781267 #8 39.46              |         ^
+2025-Jun-10 07:30:22.781267 #8 39.46            61|           ++ (derivationArgs.passAsFile or [ ]);
+2025-Jun-10 07:30:22.781267 #8 39.46
+2025-Jun-10 07:30:22.781267 #8 39.46        (stack trace truncated; use '--show-trace' to show the full, detailed trace)
+2025-Jun-10 07:30:22.781267 #8 39.46
+2025-Jun-10 07:30:22.781267 #8 39.46        error: undefined variable 'nodejs-20_x'
+2025-Jun-10 07:30:22.781267 #8 39.46        at /app/.nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix:19:9:
+2025-Jun-10 07:30:22.781267 #8 39.46            18|         '')
+2025-Jun-10 07:30:22.781267 #8 39.46            19|         nodejs-20_x npm
+2025-Jun-10 07:30:22.781267 #8 39.46              |         ^
+2025-Jun-10 07:30:22.781267 #8 39.46            20|       ];
+2025-Jun-10 07:30:22.781267 #8 ERROR: process "/bin/bash -ol pipefail -c nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d" did not complete successfully: exit code: 1
+2025-Jun-10 07:30:22.781267 ------
+2025-Jun-10 07:30:22.781267 > [stage-0  4/11] RUN nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d:
+2025-Jun-10 07:30:22.781267 39.46            61|           ++ (derivationArgs.passAsFile or [ ]);
+2025-Jun-10 07:30:22.781267 39.46
+2025-Jun-10 07:30:22.781267 39.46        (stack trace truncated; use '--show-trace' to show the full, detailed trace)
+2025-Jun-10 07:30:22.781267 39.46
+2025-Jun-10 07:30:22.781267 39.46        error: undefined variable 'nodejs-20_x'
+2025-Jun-10 07:30:22.781267 39.46        at /app/.nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix:19:9:
+2025-Jun-10 07:30:22.781267 39.46            18|         '')
+2025-Jun-10 07:30:22.781267 39.46            19|         nodejs-20_x npm
+2025-Jun-10 07:30:22.781267 39.46              |         ^
+2025-Jun-10 07:30:22.781267 39.46            20|       ];
+2025-Jun-10 07:30:22.781267 ------
+2025-Jun-10 07:30:22.781267
+2025-Jun-10 07:30:22.781267 1 warning found (use docker --debug to expand):
+2025-Jun-10 07:30:22.781267 - UndefinedVar: Usage of undefined variable '$NIXPACKS_PATH' (line 18)
+2025-Jun-10 07:30:22.781267 Dockerfile:8
+2025-Jun-10 07:30:22.781267 --------------------
+2025-Jun-10 07:30:22.781267 6 |
+2025-Jun-10 07:30:22.781267 7 |     COPY .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix
+2025-Jun-10 07:30:22.781267 8 | >>> RUN nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d
+2025-Jun-10 07:30:22.781267 9 |     RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends curl wget
+2025-Jun-10 07:30:22.781267 10 |
+2025-Jun-10 07:30:22.781267 --------------------
+2025-Jun-10 07:30:22.781267 ERROR: failed to solve: process "/bin/bash -ol pipefail -c nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d" did not complete successfully: exit code: 1
+2025-Jun-10 07:30:22.781267 exit status 1
+2025-Jun-10 07:30:22.785984 Deployment failed. Removing the new version of your application.
