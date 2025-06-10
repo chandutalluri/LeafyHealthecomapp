@@ -189,6 +189,13 @@ class CompletePlatformStarter {
     const parsedUrl = url.parse(req.url, true);
     const pathname = parsedUrl.pathname;
 
+    // Homepage/Dashboard
+    if (pathname === '/') {
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.end(this.generateDashboard());
+      return;
+    }
+
     // Health check
     if (pathname === '/health') {
       res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -493,6 +500,95 @@ class CompletePlatformStarter {
 
   delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  generateDashboard() {
+    return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeafyHealth Platform - API Gateway</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+               background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+               min-height: 100vh; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { text-align: center; color: white; margin-bottom: 40px; }
+        .header h1 { font-size: 3rem; margin-bottom: 10px; }
+        .header p { font-size: 1.2rem; opacity: 0.9; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 10px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .card h3 { color: #333; margin-bottom: 15px; font-size: 1.4rem; }
+        .status { display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; }
+        .status.healthy { background: #10b981; color: white; }
+        .service-list { list-style: none; }
+        .service-list li { padding: 8px 0; border-bottom: 1px solid #eee; }
+        .service-list li:last-child { border-bottom: none; }
+        .endpoint { background: #f8fafc; padding: 10px; border-radius: 5px; margin: 5px 0; font-family: monospace; }
+        .method { color: #059669; font-weight: bold; }
+        .btn { background: #667eea; color: white; padding: 10px 20px; border: none; border-radius: 5px; 
+               text-decoration: none; display: inline-block; margin: 5px 5px 5px 0; cursor: pointer; }
+        .btn:hover { background: #5a67d8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌿 LeafyHealth Platform</h1>
+            <p>Enterprise Food Delivery Management System</p>
+            <span class="status healthy">✓ ${this.services.length} Microservices Online</span>
+        </div>
+        
+        <div class="grid">
+            <div class="card">
+                <h3>Platform Status</h3>
+                <p><strong>Services:</strong> ${this.services.length} microservices</p>
+                <p><strong>Gateway:</strong> Port 8080</p>
+                <p><strong>Health:</strong> <span class="status healthy">Operational</span></p>
+                <div style="margin-top: 15px;">
+                    <a href="/health" class="btn">Health Check</a>
+                    <a href="/api/status" class="btn">Service Status</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Sample API Endpoints</h3>
+                <div class="endpoint"><span class="method">GET</span> /api/products</div>
+                <div class="endpoint"><span class="method">GET</span> /api/categories</div>
+                <div class="endpoint"><span class="method">GET</span> /api/inventory/products</div>
+                <div style="margin-top: 15px;">
+                    <a href="/api/products" class="btn">View Products</a>
+                    <a href="/api/categories" class="btn">View Categories</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Available Microservices</h3>
+                <ul class="service-list">
+                    ${this.services.slice(0, 8).map(service => 
+                        `<li><strong>${service.name}</strong> - Port ${service.port}</li>`
+                    ).join('')}
+                    ${this.services.length > 8 ? `<li><em>+${this.services.length - 8} more services</em></li>` : ''}
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>Quick Links</h3>
+                <p>Access different parts of the platform:</p>
+                <div style="margin-top: 15px;">
+                    <a href="/api/auth" class="btn">Authentication</a>
+                    <a href="/api/orders" class="btn">Orders</a>
+                    <a href="/api/payments" class="btn">Payments</a>
+                    <a href="/api/analytics" class="btn">Analytics</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>`;
   }
 }
 
