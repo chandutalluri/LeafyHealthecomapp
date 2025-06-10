@@ -92,14 +92,57 @@ class CompletePlatformStarter {
   }
 
   async startAllMicroservices() {
-    console.log(`🔧 Initializing ${this.services.length} microservice routes...`);
+    console.log(`🔧 Starting frontend applications...`);
     
-    // For production deployment, simulate microservices through the gateway
-    for (const service of this.services) {
-      console.log(`✅ ${service.name} route configured`);
+    // Start frontend applications
+    await this.startFrontendApps();
+    
+    console.log(`✅ All frontend applications started`);
+  }
+
+  async startFrontendApps() {
+    const frontendApps = [
+      { name: 'Super Admin', path: 'frontend/apps/super-admin', port: 3003 },
+      { name: 'Admin Portal', path: 'frontend/apps/admin-portal', port: 3002 },
+      { name: 'E-commerce Web', path: 'frontend/apps/ecommerce-web', port: 3000 },
+      { name: 'Mobile Commerce', path: 'frontend/apps/ecommerce-mobile', port: 3001 },
+      { name: 'Operations Dashboard', path: 'frontend/apps/ops-delivery', port: 3004 }
+    ];
+
+    for (const app of frontendApps) {
+      await this.startFrontendApp(app);
+      await this.delay(1000);
     }
+  }
+
+  async startFrontendApp(app) {
+    console.log(`🚀 Starting ${app.name} on port ${app.port}...`);
     
-    console.log('✅ All microservice routes ready');
+    const appProcess = spawn('npm', ['run', 'start'], {
+      cwd: app.path,
+      env: {
+        ...process.env,
+        PORT: app.port.toString(),
+        NODE_ENV: 'production'
+      },
+      stdio: ['ignore', 'pipe', 'pipe']
+    });
+
+    this.runningProcesses.push(appProcess);
+
+    appProcess.stdout.on('data', (data) => {
+      const output = data.toString();
+      if (output.includes('Ready') || output.includes('ready')) {
+        console.log(`✅ ${app.name} ready on port ${app.port}`);
+      }
+    });
+
+    appProcess.stderr.on('data', (data) => {
+      const error = data.toString();
+      if (!error.includes('ExperimentalWarning')) {
+        console.log(`[${app.name}] ${error}`);
+      }
+    });
   }
 
 
@@ -151,10 +194,29 @@ class CompletePlatformStarter {
     const parsedUrl = url.parse(req.url, true);
     const pathname = parsedUrl.pathname;
 
-    // Homepage/Dashboard
-    if (pathname === '/') {
-      res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.end(this.generateDashboard());
+    // Route to frontend applications
+    if (pathname === '/' || pathname === '/super-admin') {
+      this.proxyToFrontend(req, res, 'http://localhost:3003', '/super-admin');
+      return;
+    }
+    
+    if (pathname.startsWith('/admin')) {
+      this.proxyToFrontend(req, res, 'http://localhost:3002', '/admin');
+      return;
+    }
+    
+    if (pathname.startsWith('/ecommerce') || pathname === '/shop') {
+      this.proxyToFrontend(req, res, 'http://localhost:3000', '/ecommerce');
+      return;
+    }
+    
+    if (pathname.startsWith('/mobile')) {
+      this.proxyToFrontend(req, res, 'http://localhost:3001', '/mobile');
+      return;
+    }
+    
+    if (pathname.startsWith('/operations') || pathname.startsWith('/ops')) {
+      this.proxyToFrontend(req, res, 'http://localhost:3004', '/operations');
       return;
     }
 
@@ -432,6 +494,47 @@ class CompletePlatformStarter {
           timestamp: new Date().toISOString()
         }));
       }
+    });
+
+    if (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH') {
+      req.pipe(proxyReq, { end: true });
+    } else {
+      proxyReq.end();
+    }
+  }
+
+  proxyToFrontend(req, res, target, appName) {
+    const targetUrl = url.parse(target);
+    
+    const options = {
+      hostname: targetUrl.hostname,
+      port: targetUrl.port,
+      path: req.url,
+      method: req.method,
+      headers: {
+        ...req.headers,
+        'host': `${targetUrl.hostname}:${targetUrl.port}`
+      }
+    };
+
+    const proxyReq = http.request(options, (proxyRes) => {
+      res.writeHead(proxyRes.statusCode, proxyRes.headers);
+      proxyRes.pipe(res, { end: true });
+    });
+
+    proxyReq.on('error', (err) => {
+      console.log(`Frontend ${appName} not available:`, err.message);
+      res.writeHead(503, { 'Content-Type': 'text/html' });
+      res.end(`
+        <html>
+          <head><title>${appName} - Starting</title></head>
+          <body>
+            <h1>${appName} is starting...</h1>
+            <p>Please wait while the frontend application loads.</p>
+            <script>setTimeout(() => location.reload(), 3000);</script>
+          </body>
+        </html>
+      `);
     });
 
     if (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH') {

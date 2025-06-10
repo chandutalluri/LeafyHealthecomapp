@@ -13,6 +13,9 @@ RUN npm ci --production --ignore-scripts && npm cache clean --force
 # Copy application files
 COPY . .
 
+# Expose frontend ports
+EXPOSE 3000 3001 3002 3003 3004
+
 # Create non-root user
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nodejs --ingroup nodejs
