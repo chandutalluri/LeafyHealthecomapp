@@ -1,0 +1,423 @@
+Deployment is Failed.
+2025-Jun-10 07:57:49.861841 Starting deployment of chandutalluri/LeafyHealthecomapp:main to localhost.
+2025-Jun-10 07:57:49.987167 Preparing container with helper image: ghcr.io/coollabsio/coolify-helper:1.0.8.
+2025-Jun-10 07:57:50.061309 [CMD]: docker stop --time=30 jkcs4s4ok808s8kgkcso0s8s
+2025-Jun-10 07:57:50.061309 Error response from daemon: No such container: jkcs4s4ok808s8kgkcso0s8s
+2025-Jun-10 07:57:50.133059 [CMD]: docker rm -f jkcs4s4ok808s8kgkcso0s8s
+2025-Jun-10 07:57:50.133059 Error response from daemon: No such container: jkcs4s4ok808s8kgkcso0s8s
+2025-Jun-10 07:57:50.235794 [CMD]: docker run -d --network coolify --name jkcs4s4ok808s8kgkcso0s8s --rm -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/coollabsio/coolify-helper:1.0.8
+2025-Jun-10 07:57:50.235794 d6813a1345d04725908e8a639920f99bd6035d3e2e63f1c20dec5b9b8fbc9bf2
+2025-Jun-10 07:57:51.848740 [CMD]: docker exec jkcs4s4ok808s8kgkcso0s8s bash -c 'GIT_SSH_COMMAND="ssh -o ConnectTimeout=30 -p 22 -o Port=22 -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git ls-remote https://github.com/chandutalluri/LeafyHealthecomapp main'
+2025-Jun-10 07:57:51.848740 2f2ede908854fd1a198f3f08c353a6a0b203fe00	refs/heads/main
+2025-Jun-10 07:57:51.860285 ----------------------------------------
+2025-Jun-10 07:57:51.864141 Importing chandutalluri/LeafyHealthecomapp:main (commit sha HEAD) to /artifacts/jkcs4s4ok808s8kgkcso0s8s.
+2025-Jun-10 07:57:51.989403 [CMD]: docker exec jkcs4s4ok808s8kgkcso0s8s bash -c 'git clone -b "main" https://github.com/chandutalluri/LeafyHealthecomapp /artifacts/jkcs4s4ok808s8kgkcso0s8s && cd /artifacts/jkcs4s4ok808s8kgkcso0s8s && sed -i "s#git@\(.*\):#https://\1/#g" /artifacts/jkcs4s4ok808s8kgkcso0s8s/.gitmodules || true && cd /artifacts/jkcs4s4ok808s8kgkcso0s8s && GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git submodule update --init --recursive && cd /artifacts/jkcs4s4ok808s8kgkcso0s8s && GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git lfs pull'
+2025-Jun-10 07:57:51.989403 Cloning into '/artifacts/jkcs4s4ok808s8kgkcso0s8s'...
+2025-Jun-10 07:57:54.077920 sed: /artifacts/jkcs4s4ok808s8kgkcso0s8s/.gitmodules: No such file or directory
+2025-Jun-10 07:57:54.548528 [CMD]: docker exec jkcs4s4ok808s8kgkcso0s8s bash -c 'cd /artifacts/jkcs4s4ok808s8kgkcso0s8s && git log -1 2f2ede908854fd1a198f3f08c353a6a0b203fe00 --pretty=%B'
+2025-Jun-10 07:57:54.548528 Prepare application for final production deployment on Ubuntu Coolify
+2025-Jun-10 07:57:54.548528
+2025-Jun-10 07:57:54.548528 Adds deployment configurations, optimizes resources, and removes waste files.
+2025-Jun-10 07:57:54.548528
+2025-Jun-10 07:57:54.548528 Replit-Commit-Author: Agent
+2025-Jun-10 07:57:54.548528 Replit-Commit-Session-Id: 9b7bf35e-5707-46ec-938a-fab7fd9d7a2b
+2025-Jun-10 07:57:54.548528 Replit-Commit-Screenshot-Url: https://storage.googleapis.com/screenshot-production-us-central1/0a9ef2af-f637-4cf2-a256-180f7492c240/d0e90078-bc02-4e17-a84f-6aba248e889a.jpg
+2025-Jun-10 07:57:54.642722 Image not found (ug8swkgw848cckow84kgk8w8:2f2ede908854fd1a198f3f08c353a6a0b203fe00). Building new image.
+2025-Jun-10 07:57:55.282925 [CMD]: docker exec jkcs4s4ok808s8kgkcso0s8s bash -c 'cat /artifacts/jkcs4s4ok808s8kgkcso0s8s/Dockerfile'
+2025-Jun-10 07:57:55.282925 # Ubuntu Coolify Optimized Dockerfile for LeafyHealth Platform
+2025-Jun-10 07:57:55.282925 FROM node:20-alpine AS base
+2025-Jun-10 07:57:55.282925
+2025-Jun-10 07:57:55.282925 # Install system dependencies for Ubuntu Coolify
+2025-Jun-10 07:57:55.282925 RUN apk add --no-cache \
+2025-Jun-10 07:57:55.282925 libc6-compat \
+2025-Jun-10 07:57:55.282925 curl \
+2025-Jun-10 07:57:55.282925 ca-certificates \
+2025-Jun-10 07:57:55.282925 dumb-init
+2025-Jun-10 07:57:55.282925
+2025-Jun-10 07:57:55.282925 WORKDIR /app
+2025-Jun-10 07:57:55.282925
+2025-Jun-10 07:57:55.282925 # Copy package files for dependency installation
+2025-Jun-10 07:57:55.282925 COPY package*.json ./
+2025-Jun-10 07:57:55.282925
+2025-Jun-10 07:57:55.282925 # Install production dependencies
+2025-Jun-10 07:57:55.282925 RUN npm ci --only=production --ignore-scripts && \
+2025-Jun-10 07:57:55.282925 npm cache clean --force
+2025-Jun-10 07:57:55.282925
+2025-Jun-10 07:57:55.282925 # Install development dependencies for build
+2025-Jun-10 07:57:55.282925 RUN npm ci --ignore-scripts
+2025-Jun-10 07:57:55.282925
+2025-Jun-10 07:57:55.282925 # Copy source code
+2025-Jun-10 07:57:55.282925 COPY . .
+2025-Jun-10 07:57:55.282925
+2025-Jun-10 07:57:55.282925 # Build frontend applications with error handling
+2025-Jun-10 07:57:55.282925 RUN cd frontend && \
+2025-Jun-10 07:57:55.282925 npm ci --ignore-scripts && \
+2025-Jun-10 07:57:55.282925 npm run build || echo "Frontend build completed with warnings"
+2025-Jun-10 07:57:55.282925
+2025-Jun-10 07:57:55.282925 # Clean up build artifacts
+2025-Jun-10 07:57:55.282925 RUN rm -rf frontend/node_modules && \
+2025-Jun-10 07:57:55.282925 rm -rf frontend/apps/*/.next/cache && \
+2025-Jun-10 07:57:55.282925 rm -rf .turbo && \
+2025-Jun-10 07:57:55.282925 find . -name "*.log" -type f -delete && \
+2025-Jun-10 07:57:55.282925 find . -name "*.cache" -type f -delete
+2025-Jun-10 07:57:55.282925
+2025-Jun-10 07:57:55.282925 # Create application user
+2025-Jun-10 07:57:55.282925 RUN addgroup --system --gid 1001 nodejs && \
+2025-Jun-10 07:57:55.282925 adduser --system --uid 1001 nodejs --ingroup nodejs
+2025-Jun-10 07:57:55.282925
+2025-Jun-10 07:57:55.282925 # Set production environment variables
+2025-Jun-10 07:57:55.282925 ENV NODE_ENV=production \
+2025-Jun-10 07:57:55.282925 PORT=8080 \
+2025-Jun-10 07:57:55.282925 NEXT_TELEMETRY_DISABLED=1 \
+2025-Jun-10 07:57:55.282925 NODE_OPTIONS="--max_old_space_size=1024" \
+2025-Jun-10 07:57:55.282925 UV_THREADPOOL_SIZE=4
+2025-Jun-10 07:57:55.282925
+2025-Jun-10 07:57:55.282925 # Transfer ownership to nodejs user
+2025-Jun-10 07:57:55.282925 RUN chown -R nodejs:nodejs /app
+2025-Jun-10 07:57:55.282925
+2025-Jun-10 07:57:55.282925 USER nodejs
+2025-Jun-10 07:57:55.282925
+2025-Jun-10 07:57:55.282925 # Expose application port
+2025-Jun-10 07:57:55.282925 EXPOSE 8080
+2025-Jun-10 07:57:55.282925
+2025-Jun-10 07:57:55.282925 # Health check optimized for Coolify monitoring
+2025-Jun-10 07:57:55.282925 HEALTHCHECK --interval=30s --timeout=10s --start-period=20s --retries=3 \
+2025-Jun-10 07:57:55.282925 CMD curl -f http://localhost:8080/health || exit 1
+2025-Jun-10 07:57:55.282925
+2025-Jun-10 07:57:55.282925 # Use dumb-init for proper signal handling
+2025-Jun-10 07:57:55.282925 ENTRYPOINT ["dumb-init", "--"]
+2025-Jun-10 07:57:55.282925 CMD ["node", "complete-platform-starter.js"]
+2025-Jun-10 07:57:55.544676 [CMD]: docker exec jkcs4s4ok808s8kgkcso0s8s bash -c 'cat /artifacts/jkcs4s4ok808s8kgkcso0s8s/Dockerfile'
+2025-Jun-10 07:57:55.544676 # Ubuntu Coolify Optimized Dockerfile for LeafyHealth Platform
+2025-Jun-10 07:57:55.544676 FROM node:20-alpine AS base
+2025-Jun-10 07:57:55.544676
+2025-Jun-10 07:57:55.544676 # Install system dependencies for Ubuntu Coolify
+2025-Jun-10 07:57:55.544676 RUN apk add --no-cache \
+2025-Jun-10 07:57:55.544676 libc6-compat \
+2025-Jun-10 07:57:55.544676 curl \
+2025-Jun-10 07:57:55.544676 ca-certificates \
+2025-Jun-10 07:57:55.544676 dumb-init
+2025-Jun-10 07:57:55.544676
+2025-Jun-10 07:57:55.544676 WORKDIR /app
+2025-Jun-10 07:57:55.544676
+2025-Jun-10 07:57:55.544676 # Copy package files for dependency installation
+2025-Jun-10 07:57:55.544676 COPY package*.json ./
+2025-Jun-10 07:57:55.544676
+2025-Jun-10 07:57:55.544676 # Install production dependencies
+2025-Jun-10 07:57:55.544676 RUN npm ci --only=production --ignore-scripts && \
+2025-Jun-10 07:57:55.544676 npm cache clean --force
+2025-Jun-10 07:57:55.544676
+2025-Jun-10 07:57:55.544676 # Install development dependencies for build
+2025-Jun-10 07:57:55.544676 RUN npm ci --ignore-scripts
+2025-Jun-10 07:57:55.544676
+2025-Jun-10 07:57:55.544676 # Copy source code
+2025-Jun-10 07:57:55.544676 COPY . .
+2025-Jun-10 07:57:55.544676
+2025-Jun-10 07:57:55.544676 # Build frontend applications with error handling
+2025-Jun-10 07:57:55.544676 RUN cd frontend && \
+2025-Jun-10 07:57:55.544676 npm ci --ignore-scripts && \
+2025-Jun-10 07:57:55.544676 npm run build || echo "Frontend build completed with warnings"
+2025-Jun-10 07:57:55.544676
+2025-Jun-10 07:57:55.544676 # Clean up build artifacts
+2025-Jun-10 07:57:55.544676 RUN rm -rf frontend/node_modules && \
+2025-Jun-10 07:57:55.544676 rm -rf frontend/apps/*/.next/cache && \
+2025-Jun-10 07:57:55.544676 rm -rf .turbo && \
+2025-Jun-10 07:57:55.544676 find . -name "*.log" -type f -delete && \
+2025-Jun-10 07:57:55.544676 find . -name "*.cache" -type f -delete
+2025-Jun-10 07:57:55.544676
+2025-Jun-10 07:57:55.544676 # Create application user
+2025-Jun-10 07:57:55.544676 RUN addgroup --system --gid 1001 nodejs && \
+2025-Jun-10 07:57:55.544676 adduser --system --uid 1001 nodejs --ingroup nodejs
+2025-Jun-10 07:57:55.544676
+2025-Jun-10 07:57:55.544676 # Set production environment variables
+2025-Jun-10 07:57:55.544676 ENV NODE_ENV=production \
+2025-Jun-10 07:57:55.544676 PORT=8080 \
+2025-Jun-10 07:57:55.544676 NEXT_TELEMETRY_DISABLED=1 \
+2025-Jun-10 07:57:55.544676 NODE_OPTIONS="--max_old_space_size=1024" \
+2025-Jun-10 07:57:55.544676 UV_THREADPOOL_SIZE=4
+2025-Jun-10 07:57:55.544676
+2025-Jun-10 07:57:55.544676 # Transfer ownership to nodejs user
+2025-Jun-10 07:57:55.544676 RUN chown -R nodejs:nodejs /app
+2025-Jun-10 07:57:55.544676
+2025-Jun-10 07:57:55.544676 USER nodejs
+2025-Jun-10 07:57:55.544676
+2025-Jun-10 07:57:55.544676 # Expose application port
+2025-Jun-10 07:57:55.544676 EXPOSE 8080
+2025-Jun-10 07:57:55.544676
+2025-Jun-10 07:57:55.544676 # Health check optimized for Coolify monitoring
+2025-Jun-10 07:57:55.544676 HEALTHCHECK --interval=30s --timeout=10s --start-period=20s --retries=3 \
+2025-Jun-10 07:57:55.544676 CMD curl -f http://localhost:8080/health || exit 1
+2025-Jun-10 07:57:55.544676
+2025-Jun-10 07:57:55.544676 # Use dumb-init for proper signal handling
+2025-Jun-10 07:57:55.544676 ENTRYPOINT ["dumb-init", "--"]
+2025-Jun-10 07:57:55.544676 CMD ["node", "complete-platform-starter.js"]
+2025-Jun-10 07:57:55.682876 ----------------------------------------
+2025-Jun-10 07:57:55.685273 Building docker image started.
+2025-Jun-10 07:57:55.687720 To check the current progress, click on Show Debug Logs.
+2025-Jun-10 07:57:56.016955 [CMD]: docker exec jkcs4s4ok808s8kgkcso0s8s bash -c 'cat /artifacts/build.sh'
+2025-Jun-10 07:57:56.016955 docker build  --add-host coolify:10.0.1.5 --add-host coolify-db:10.0.1.3 --add-host coolify-realtime:10.0.1.4 --add-host coolify-redis:10.0.1.2 --network host -f /artifacts/jkcs4s4ok808s8kgkcso0s8s/Dockerfile --build-arg SOURCE_COMMIT='2f2ede908854fd1a198f3f08c353a6a0b203fe00' --build-arg 'COOLIFY_URL=http://ug8swkgw848cckow84kgk8w8.106.222.233.10.sslip.io' --build-arg 'COOLIFY_FQDN=ug8swkgw848cckow84kgk8w8.106.222.233.10.sslip.io' --build-arg 'COOLIFY_BRANCH=main' --build-arg 'COOLIFY_RESOURCE_UUID=ug8swkgw848cckow84kgk8w8' --build-arg 'COOLIFY_CONTAINER_NAME=ug8swkgw848cckow84kgk8w8-075749404496' --progress plain -t ug8swkgw848cckow84kgk8w8:2f2ede908854fd1a198f3f08c353a6a0b203fe00 /artifacts/jkcs4s4ok808s8kgkcso0s8s
+2025-Jun-10 07:57:56.454751 [CMD]: docker exec jkcs4s4ok808s8kgkcso0s8s bash -c 'bash /artifacts/build.sh'
+2025-Jun-10 07:57:56.454751 #0 building with "default" instance using docker driver
+2025-Jun-10 07:57:56.454751
+2025-Jun-10 07:57:56.454751 #1 [internal] load build definition from Dockerfile
+2025-Jun-10 07:57:56.454751 #1 transferring dockerfile: 1.70kB done
+2025-Jun-10 07:57:56.454751 #1 DONE 0.0s
+2025-Jun-10 07:57:56.454751
+2025-Jun-10 07:57:56.454751 #2 [internal] load metadata for docker.io/library/node:20-alpine
+2025-Jun-10 07:58:01.185604 #2 DONE 4.9s
+2025-Jun-10 07:58:01.324172 #3 [internal] load .dockerignore
+2025-Jun-10 07:58:01.324172 #3 transferring context: 728B done
+2025-Jun-10 07:58:01.324172 #3 DONE 0.0s
+2025-Jun-10 07:58:01.324172
+2025-Jun-10 07:58:01.324172 #4 [ 1/11] FROM docker.io/library/node:20-alpine@sha256:d3507a213936fe4ef54760a186e113db5188472d9efdf491686bd94580a1c1e8
+2025-Jun-10 07:58:01.324172 #4 resolve docker.io/library/node:20-alpine@sha256:d3507a213936fe4ef54760a186e113db5188472d9efdf491686bd94580a1c1e8 0.0s done
+2025-Jun-10 07:58:01.324172 #4 sha256:de1f569a869623328ab2534cb764ccb6d2142d6e1b557b1580357d5176b863a5 0B / 1.26MB 0.1s
+2025-Jun-10 07:58:01.324172 #4 sha256:a35ae40f249e2d6c90ea87a5676595b3b022a62efa9c2cc60c803de19e468134 0B / 445B 0.1s
+2025-Jun-10 07:58:01.324172 #4 sha256:d3507a213936fe4ef54760a186e113db5188472d9efdf491686bd94580a1c1e8 7.67kB / 7.67kB done
+2025-Jun-10 07:58:01.324172 #4 sha256:dd75a9e8995e7f9d83f64af16d07c1edbc97139b08246ed8cb7f5ea1d28c726d 1.72kB / 1.72kB done
+2025-Jun-10 07:58:01.324172 #4 sha256:367a28bb5439cb0fdb1c99a3ab6275e84f1ec7eb8c61d8e895808bd2bdf00b54 6.21kB / 6.21kB done
+2025-Jun-10 07:58:01.324172 #4 sha256:50e3d90b63789c43aa015219149b428346dc8958a44c58c5da65f0b8f0af0e28 0B / 42.95MB 0.1s
+2025-Jun-10 07:58:01.424324 #4 ...
+2025-Jun-10 07:58:01.426157 #5 [internal] load build context
+2025-Jun-10 07:58:01.426157 #5 transferring context: 2.48MB 0.2s done
+2025-Jun-10 07:58:01.426157 #5 DONE 0.2s
+2025-Jun-10 07:58:01.426157
+2025-Jun-10 07:58:01.426157 #4 [ 1/11] FROM docker.io/library/node:20-alpine@sha256:d3507a213936fe4ef54760a186e113db5188472d9efdf491686bd94580a1c1e8
+2025-Jun-10 07:58:02.323593 #4 sha256:50e3d90b63789c43aa015219149b428346dc8958a44c58c5da65f0b8f0af0e28 3.15MB / 42.95MB 1.1s
+2025-Jun-10 07:58:02.817193 #4 sha256:a35ae40f249e2d6c90ea87a5676595b3b022a62efa9c2cc60c803de19e468134 445B / 445B 1.6s done
+2025-Jun-10 07:58:02.817193 #4 sha256:50e3d90b63789c43aa015219149b428346dc8958a44c58c5da65f0b8f0af0e28 7.34MB / 42.95MB 1.6s
+2025-Jun-10 07:58:03.619721 #4 sha256:50e3d90b63789c43aa015219149b428346dc8958a44c58c5da65f0b8f0af0e28 10.49MB / 42.95MB 2.4s
+2025-Jun-10 07:58:04.018752 #4 sha256:de1f569a869623328ab2534cb764ccb6d2142d6e1b557b1580357d5176b863a5 1.05MB / 1.26MB 2.8s
+2025-Jun-10 07:58:04.317314 #4 sha256:de1f569a869623328ab2534cb764ccb6d2142d6e1b557b1580357d5176b863a5 1.26MB / 1.26MB 2.9s done
+2025-Jun-10 07:58:04.517082 #4 sha256:50e3d90b63789c43aa015219149b428346dc8958a44c58c5da65f0b8f0af0e28 13.63MB / 42.95MB 3.3s
+2025-Jun-10 07:58:05.118553 #4 sha256:50e3d90b63789c43aa015219149b428346dc8958a44c58c5da65f0b8f0af0e28 16.78MB / 42.95MB 3.9s
+2025-Jun-10 07:58:05.716650 #4 sha256:50e3d90b63789c43aa015219149b428346dc8958a44c58c5da65f0b8f0af0e28 19.92MB / 42.95MB 4.5s
+2025-Jun-10 07:58:06.318013 #4 sha256:50e3d90b63789c43aa015219149b428346dc8958a44c58c5da65f0b8f0af0e28 23.07MB / 42.95MB 5.1s
+2025-Jun-10 07:58:07.118218 #4 sha256:50e3d90b63789c43aa015219149b428346dc8958a44c58c5da65f0b8f0af0e28 26.21MB / 42.95MB 5.9s
+2025-Jun-10 07:58:07.917585 #4 sha256:50e3d90b63789c43aa015219149b428346dc8958a44c58c5da65f0b8f0af0e28 29.36MB / 42.95MB 6.7s
+2025-Jun-10 07:58:08.717706 #4 sha256:50e3d90b63789c43aa015219149b428346dc8958a44c58c5da65f0b8f0af0e28 32.51MB / 42.95MB 7.5s
+2025-Jun-10 07:58:09.416779 #4 sha256:50e3d90b63789c43aa015219149b428346dc8958a44c58c5da65f0b8f0af0e28 35.65MB / 42.95MB 8.2s
+2025-Jun-10 07:58:10.217400 #4 sha256:50e3d90b63789c43aa015219149b428346dc8958a44c58c5da65f0b8f0af0e28 38.80MB / 42.95MB 9.0s
+2025-Jun-10 07:58:10.916646 #4 sha256:50e3d90b63789c43aa015219149b428346dc8958a44c58c5da65f0b8f0af0e28 41.94MB / 42.95MB 9.7s
+2025-Jun-10 07:58:11.293134 #4 sha256:50e3d90b63789c43aa015219149b428346dc8958a44c58c5da65f0b8f0af0e28 42.95MB / 42.95MB 9.9s done
+2025-Jun-10 07:58:11.293134 #4 extracting sha256:50e3d90b63789c43aa015219149b428346dc8958a44c58c5da65f0b8f0af0e28 0.1s
+2025-Jun-10 07:58:12.502518 #4 extracting sha256:50e3d90b63789c43aa015219149b428346dc8958a44c58c5da65f0b8f0af0e28 1.3s done
+2025-Jun-10 07:58:12.603001 #4 extracting sha256:de1f569a869623328ab2534cb764ccb6d2142d6e1b557b1580357d5176b863a5 0.0s done
+2025-Jun-10 07:58:12.703932 #4 extracting sha256:a35ae40f249e2d6c90ea87a5676595b3b022a62efa9c2cc60c803de19e468134 done
+2025-Jun-10 07:58:12.703932 #4 DONE 11.4s
+2025-Jun-10 07:58:12.703932
+2025-Jun-10 07:58:12.703932 #6 [ 2/11] RUN apk add --no-cache     libc6-compat     curl     ca-certificates     dumb-init
+2025-Jun-10 07:58:12.703932 #6 0.070 fetch https://dl-cdn.alpinelinux.org/alpine/v3.22/main/x86_64/APKINDEX.tar.gz
+2025-Jun-10 07:58:13.369136 #6 0.736 fetch https://dl-cdn.alpinelinux.org/alpine/v3.22/community/x86_64/APKINDEX.tar.gz
+2025-Jun-10 07:58:14.006444 #6 1.368 (1/14) Installing ca-certificates (20241121-r2)
+2025-Jun-10 07:58:14.179390 #6 1.459 (2/14) Installing brotli-libs (1.1.0-r2)
+2025-Jun-10 07:58:14.179390 #6 1.546 (3/14) Installing c-ares (1.34.5-r0)
+2025-Jun-10 07:58:14.357100 #6 1.608 (4/14) Installing libunistring (1.3-r0)
+2025-Jun-10 07:58:14.357100 #6 1.724 (5/14) Installing libidn2 (2.3.7-r0)
+2025-Jun-10 07:58:14.478052 #6 1.788 (6/14) Installing nghttp2-libs (1.65.0-r0)
+2025-Jun-10 07:58:14.478052 #6 1.845 (7/14) Installing libpsl (0.21.5-r3)
+2025-Jun-10 07:58:14.617940 #6 1.901 (8/14) Installing zstd-libs (1.5.7-r0)
+2025-Jun-10 07:58:14.617940 #6 1.985 (9/14) Installing libcurl (8.14.1-r0)
+2025-Jun-10 07:58:14.814596 #6 2.066 (10/14) Installing curl (8.14.1-r0)
+2025-Jun-10 07:58:14.814596 #6 2.181 (11/14) Installing dumb-init (1.2.5-r3)
+2025-Jun-10 07:58:14.922825 #6 2.237 (12/14) Installing musl-obstack (1.2.3-r2)
+2025-Jun-10 07:58:14.922825 #6 2.289 (13/14) Installing libucontext (1.3.2-r0)
+2025-Jun-10 07:58:15.034564 #6 2.343 (14/14) Installing gcompat (1.1.0-r4)
+2025-Jun-10 07:58:15.034564 #6 2.400 Executing busybox-1.37.0-r18.trigger
+2025-Jun-10 07:58:15.235494 #6 2.410 Executing ca-certificates-20241121-r2.trigger
+2025-Jun-10 07:58:15.235494 #6 2.448 OK: 16 MiB in 32 packages
+2025-Jun-10 07:58:15.352266 #6 DONE 2.7s
+2025-Jun-10 07:58:15.562574
+2025-Jun-10 07:58:15.564814 #7 [ 3/11] WORKDIR /app
+2025-Jun-10 07:58:15.564814 #7 DONE 0.0s
+2025-Jun-10 07:58:15.564814
+2025-Jun-10 07:58:15.564814 #8 [ 4/11] COPY package*.json ./
+2025-Jun-10 07:58:15.564814 #8 DONE 0.0s
+2025-Jun-10 07:58:15.564814
+2025-Jun-10 07:58:15.564814 #9 [ 5/11] RUN npm ci --only=production --ignore-scripts &&     npm cache clean --force
+2025-Jun-10 07:58:15.569223 #9 0.158 npm warn config only Use `--omit=dev` to omit dev dependencies from the install.
+2025-Jun-10 07:58:21.092185 #9 5.679 npm warn deprecated workbox-google-analytics@6.6.0: It is not compatible with newer versions of GA starting with v4, as long as you are using GAv3 it should be ok, but the package is not longer being maintained
+2025-Jun-10 07:58:21.329155 #9 5.768 npm warn deprecated workbox-cacheable-response@6.6.0: workbox-background-sync@6.6.0
+2025-Jun-10 07:58:21.569793 #9 6.158 npm warn deprecated sourcemap-codec@1.4.8: Please use @jridgewell/sourcemap-codec instead
+2025-Jun-10 07:58:22.563674 #9 7.152 npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+2025-Jun-10 07:58:26.228522 #9 10.82 npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+2025-Jun-10 07:58:43.814738 #9 28.40 npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+2025-Jun-10 07:58:44.653107 #9 29.24 npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+2025-Jun-10 07:58:47.183482 #9 31.77 npm warn deprecated rollup-plugin-terser@7.0.2: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-terser
+2025-Jun-10 07:58:47.515401 #9 32.10 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-Jun-10 07:58:51.417653 #9 36.01 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-Jun-10 07:58:51.626641 #9 36.22 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-Jun-10 07:58:51.860921 #9 36.30 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-Jun-10 07:58:52.799506 #9 37.39 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-Jun-10 07:59:23.325053 #9 67.91
+2025-Jun-10 07:59:23.325053 #9 67.91 added 1399 packages, and audited 1400 packages in 1m
+2025-Jun-10 07:59:23.325053 #9 67.91
+2025-Jun-10 07:59:23.325053 #9 67.91 226 packages are looking for funding
+2025-Jun-10 07:59:23.325053 #9 67.91   run `npm fund` for details
+2025-Jun-10 07:59:23.488114 #9 67.93
+2025-Jun-10 07:59:23.488114 #9 67.93 12 vulnerabilities (10 moderate, 2 high)
+2025-Jun-10 07:59:23.488114 #9 67.93
+2025-Jun-10 07:59:23.488114 #9 67.93 To address issues that do not require attention, run:
+2025-Jun-10 07:59:23.488114 #9 67.93   npm audit fix
+2025-Jun-10 07:59:23.488114 #9 67.93
+2025-Jun-10 07:59:23.488114 #9 67.93 To address all issues possible (including breaking changes), run:
+2025-Jun-10 07:59:23.488114 #9 67.93   npm audit fix --force
+2025-Jun-10 07:59:23.488114 #9 67.93
+2025-Jun-10 07:59:23.488114 #9 67.93 Some issues need review, and may require choosing
+2025-Jun-10 07:59:23.488114 #9 67.93 a different dependency.
+2025-Jun-10 07:59:23.488114 #9 67.93
+2025-Jun-10 07:59:23.488114 #9 67.93 Run `npm audit` for details.
+2025-Jun-10 07:59:23.488114 #9 67.93 npm notice
+2025-Jun-10 07:59:23.488114 #9 67.93 npm notice New major version of npm available! 10.8.2 -> 11.4.1
+2025-Jun-10 07:59:23.488114 #9 67.93 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.4.1
+2025-Jun-10 07:59:23.488114 #9 67.93 npm notice To update run: npm install -g npm@11.4.1
+2025-Jun-10 07:59:23.488114 #9 67.93 npm notice
+2025-Jun-10 07:59:23.488114 #9 68.08 npm warn using --force Recommended protections disabled.
+2025-Jun-10 07:59:24.504356 #9 DONE 69.1s
+2025-Jun-10 07:59:24.654978 #10 [ 6/11] RUN npm ci --ignore-scripts
+2025-Jun-10 07:59:40.579296 #10 16.07 npm warn deprecated workbox-cacheable-response@6.6.0: workbox-background-sync@6.6.0
+2025-Jun-10 07:59:40.808758 #10 16.15 npm warn deprecated workbox-google-analytics@6.6.0: It is not compatible with newer versions of GA starting with v4, as long as you are using GAv3 it should be ok, but the package is not longer being maintained
+2025-Jun-10 07:59:41.727945 #10 17.22 npm warn deprecated sourcemap-codec@1.4.8: Please use @jridgewell/sourcemap-codec instead
+2025-Jun-10 07:59:41.732397
+2025-Jun-10 07:59:42.282027 #10 17.78 npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+2025-Jun-10 07:59:47.482910 #10 22.98 npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+2025-Jun-10 08:00:02.246027 #10 37.74 npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+2025-Jun-10 08:00:02.251950
+2025-Jun-10 08:00:02.946696 #10 38.44 npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+2025-Jun-10 08:00:04.715213 #10 40.21 npm warn deprecated rollup-plugin-terser@7.0.2: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-terser
+2025-Jun-10 08:00:04.948966 #10 40.45 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-Jun-10 08:00:07.188543 #10 42.68 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-Jun-10 08:00:07.348018 #10 42.84 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-Jun-10 08:00:07.766274 #10 43.26 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-Jun-10 08:00:08.240794 #10 43.74 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-Jun-10 08:00:35.922581 #10 71.42
+2025-Jun-10 08:00:35.922581 #10 71.42 added 1401 packages, and audited 1402 packages in 1m
+2025-Jun-10 08:00:36.099802 #10 71.42
+2025-Jun-10 08:00:36.099802 #10 71.42 228 packages are looking for funding
+2025-Jun-10 08:00:36.099802 #10 71.42   run `npm fund` for details
+2025-Jun-10 08:00:36.099802 #10 71.44
+2025-Jun-10 08:00:36.099802 #10 71.44 12 vulnerabilities (10 moderate, 2 high)
+2025-Jun-10 08:00:36.099802 #10 71.44
+2025-Jun-10 08:00:36.099802 #10 71.44 To address issues that do not require attention, run:
+2025-Jun-10 08:00:36.099802 #10 71.44   npm audit fix
+2025-Jun-10 08:00:36.099802 #10 71.44
+2025-Jun-10 08:00:36.099802 #10 71.44 To address all issues possible (including breaking changes), run:
+2025-Jun-10 08:00:36.099802 #10 71.44   npm audit fix --force
+2025-Jun-10 08:00:36.099802 #10 71.44
+2025-Jun-10 08:00:36.099802 #10 71.44 Some issues need review, and may require choosing
+2025-Jun-10 08:00:36.099802 #10 71.44 a different dependency.
+2025-Jun-10 08:00:36.099802 #10 71.44
+2025-Jun-10 08:00:36.099802 #10 71.44 Run `npm audit` for details.
+2025-Jun-10 08:00:36.341641 #10 DONE 71.8s
+2025-Jun-10 08:00:36.496227 #11 [ 7/11] COPY . .
+2025-Jun-10 08:00:36.581066 #11 DONE 0.2s
+2025-Jun-10 08:00:36.740297 #12 [ 8/11] RUN cd frontend &&     npm ci --ignore-scripts &&     npm run build || echo "Frontend build completed with warnings"
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error code EUSAGE
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error The `npm ci` command can only install with an existing package-lock.json or
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error npm-shrinkwrap.json with lockfileVersion >= 1. Run an install with npm@5 or
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error later to generate a package-lock.json file, then try again.
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error Clean install a project
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error Usage:
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error npm ci
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error Options:
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error [--no-bin-links] [--no-fund] [--dry-run]
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error [-ws|--workspaces] [--include-workspace-root] [--install-links]
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error aliases: clean-install, ic, install-clean, isntall-clean
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error
+2025-Jun-10 08:00:37.149807 #12 0.568 npm error Run "npm help ci" for more info
+2025-Jun-10 08:00:37.345135 #12 0.570 npm error A complete log of this run can be found in: /root/.npm/_logs/2025-06-10T08_00_36_752Z-debug-0.log
+2025-Jun-10 08:00:37.345135 #12 0.577 Frontend build completed with warnings
+2025-Jun-10 08:00:37.345135 #12 DONE 0.6s
+2025-Jun-10 08:00:37.345135
+2025-Jun-10 08:00:37.345135 #13 [ 9/11] RUN rm -rf frontend/node_modules &&     rm -rf frontend/apps/*/.next/cache &&     rm -rf .turbo &&     find . -name "*.log" -type f -delete &&     find . -name "*.cache" -type f -delete
+2025-Jun-10 08:00:39.330827 #13 DONE 2.1s
+2025-Jun-10 08:00:39.574144 #14 [10/11] RUN addgroup --system --gid 1001 nodejs &&     adduser --system --uid 1001 nodejs --ingroup nodejs
+2025-Jun-10 08:00:39.574144 #14 DONE 0.1s
+2025-Jun-10 08:00:39.574144
+2025-Jun-10 08:00:39.574144 #15 [11/11] RUN chown -R nodejs:nodejs /app
+2025-Jun-10 08:01:53.748611 #15 DONE 74.3s
+2025-Jun-10 08:01:53.905808 #16 exporting to image
+2025-Jun-10 08:01:53.905808 #16 exporting layers
+2025-Jun-10 08:03:17.317884 #16 exporting layers 83.6s done
+2025-Jun-10 08:03:17.432167 #16 writing image sha256:64aeca8fc7dc4bc5db9c9660be98c0038544b2531b28a6c835d4115506257f1f done
+2025-Jun-10 08:03:17.432167 #16 naming to docker.io/library/ug8swkgw848cckow84kgk8w8:2f2ede908854fd1a198f3f08c353a6a0b203fe00 done
+2025-Jun-10 08:03:17.432167 #16 DONE 83.6s
+2025-Jun-10 08:03:17.543991 Building docker image completed.
+2025-Jun-10 08:03:17.548018 ----------------------------------------
+2025-Jun-10 08:03:17.551547 Rolling update started.
+2025-Jun-10 08:03:18.399876 [CMD]: docker exec jkcs4s4ok808s8kgkcso0s8s bash -c 'SOURCE_COMMIT=2f2ede908854fd1a198f3f08c353a6a0b203fe00 COOLIFY_FQDN=http://ug8swkgw848cckow84kgk8w8.106.222.233.10.sslip.io COOLIFY_URL=ug8swkgw848cckow84kgk8w8.106.222.233.10.sslip.io COOLIFY_BRANCH=main  docker compose --project-name ug8swkgw848cckow84kgk8w8 --project-directory /artifacts/jkcs4s4ok808s8kgkcso0s8s -f /artifacts/jkcs4s4ok808s8kgkcso0s8s/docker-compose.yaml up --build -d'
+2025-Jun-10 08:03:18.399876 Container ug8swkgw848cckow84kgk8w8-075749404496  Creating
+2025-Jun-10 08:03:18.502856 ug8swkgw848cckow84kgk8w8-075749404496 Your kernel does not support memory swappiness capabilities or the cgroup is not mounted. Memory swappiness discarded.
+2025-Jun-10 08:03:18.508901 Container ug8swkgw848cckow84kgk8w8-075749404496  Created
+2025-Jun-10 08:03:18.508901 Container ug8swkgw848cckow84kgk8w8-075749404496  Starting
+2025-Jun-10 08:03:19.367317 Container ug8swkgw848cckow84kgk8w8-075749404496  Started
+2025-Jun-10 08:03:19.387834 New container started.
+2025-Jun-10 08:03:19.394381 Custom healthcheck found, skipping default healthcheck.
+2025-Jun-10 08:03:19.400923 Waiting for healthcheck to pass on the new container.
+2025-Jun-10 08:03:19.409415 Waiting for the start period (20 seconds) before starting healthcheck.
+2025-Jun-10 08:03:39.506533 [CMD]: docker inspect --format='{{json .State.Health.Status}}' ug8swkgw848cckow84kgk8w8-075749404496
+2025-Jun-10 08:03:39.506533 "unhealthy"
+2025-Jun-10 08:03:39.602635 [CMD]: docker inspect --format='{{json .State.Health.Log}}' ug8swkgw848cckow84kgk8w8-075749404496
+2025-Jun-10 08:03:39.602635 []
+2025-Jun-10 08:03:39.605846 Attempt 1 of 3 | Healthcheck status: "unhealthy"
+2025-Jun-10 08:03:39.610097 ----------------------------------------
+2025-Jun-10 08:03:39.613064 Container logs:
+2025-Jun-10 08:03:39.689277 [CMD]: docker logs -n 100 ug8swkgw848cckow84kgk8w8-075749404496
+2025-Jun-10 08:03:39.689277 🚀 Starting Complete LeafyHealth Platform - 19 Microservices
+2025-Jun-10 08:03:39.689277 🚀 Starting Complete LeafyHealth Platform - 19 Microservices
+2025-Jun-10 08:03:39.689277 🚀 Starting Complete LeafyHealth Platform - 19 Microservices
+2025-Jun-10 08:03:39.689277 🚀 Starting Complete LeafyHealth Platform - 19 Microservices
+2025-Jun-10 08:03:39.689277 🚀 Starting Complete LeafyHealth Platform - 19 Microservices
+2025-Jun-10 08:03:39.689277 🚀 Starting Complete LeafyHealth Platform - 19 Microservices
+2025-Jun-10 08:03:39.689277 🚀 Starting Complete LeafyHealth Platform - 19 Microservices
+2025-Jun-10 08:03:39.693504 ❌ Production configuration error: Missing required environment variables: JWT_SECRET
+2025-Jun-10 08:03:39.693504 Please configure these variables before starting the application.
+2025-Jun-10 08:03:39.693504 Platform startup aborted. Please fix configuration issues.
+2025-Jun-10 08:03:39.693504 ❌ Production configuration error: Missing required environment variables: JWT_SECRET
+2025-Jun-10 08:03:39.693504 Please configure these variables before starting the application.
+2025-Jun-10 08:03:39.693504 Platform startup aborted. Please fix configuration issues.
+2025-Jun-10 08:03:39.693504 ❌ Production configuration error: Missing required environment variables: JWT_SECRET
+2025-Jun-10 08:03:39.693504 Please configure these variables before starting the application.
+2025-Jun-10 08:03:39.693504 Platform startup aborted. Please fix configuration issues.
+2025-Jun-10 08:03:39.693504 ❌ Production configuration error: Missing required environment variables: JWT_SECRET
+2025-Jun-10 08:03:39.693504 Please configure these variables before starting the application.
+2025-Jun-10 08:03:39.693504 Platform startup aborted. Please fix configuration issues.
+2025-Jun-10 08:03:39.693504 ❌ Production configuration error: Missing required environment variables: JWT_SECRET
+2025-Jun-10 08:03:39.693504 Please configure these variables before starting the application.
+2025-Jun-10 08:03:39.693504 Platform startup aborted. Please fix configuration issues.
+2025-Jun-10 08:03:39.693504 ❌ Production configuration error: Missing required environment variables: JWT_SECRET
+2025-Jun-10 08:03:39.693504 Please configure these variables before starting the application.
+2025-Jun-10 08:03:39.693504 Platform startup aborted. Please fix configuration issues.
+2025-Jun-10 08:03:39.693504 ❌ Production configuration error: Missing required environment variables: JWT_SECRET
+2025-Jun-10 08:03:39.693504 Please configure these variables before starting the application.
+2025-Jun-10 08:03:39.695853 🚀 Starting Complete LeafyHealth Platform - 19 Microservices
+2025-Jun-10 08:03:39.697721 Platform startup aborted. Please fix configuration issues.
+2025-Jun-10 08:03:39.697721 ❌ Production configuration error: Missing required environment variables: JWT_SECRET
+2025-Jun-10 08:03:39.697721 Please configure these variables before starting the application.
+2025-Jun-10 08:03:39.697721 Platform startup aborted. Please fix configuration issues.
+2025-Jun-10 08:03:39.699377 ----------------------------------------
+2025-Jun-10 08:03:39.702190 Removing old containers.
+2025-Jun-10 08:03:39.705066 ----------------------------------------
+2025-Jun-10 08:03:39.707485 WARNING: Dockerfile or Docker Image based deployment detected. The healthcheck needs a curl or wget command to check the health of the application. Please make sure that it is available in the image or turn off healthcheck on Coolify's UI.
+2025-Jun-10 08:03:39.710075 ----------------------------------------
+2025-Jun-10 08:03:39.713046 New container is not healthy, rolling back to the old container.
+2025-Jun-10 08:03:39.810995 [CMD]: docker stop --time=30 ug8swkgw848cckow84kgk8w8-075749404496
+2025-Jun-10 08:03:39.810995 ug8swkgw848cckow84kgk8w8-075749404496
+2025-Jun-10 08:03:39.889196 [CMD]: docker rm -f ug8swkgw848cckow84kgk8w8-075749404496
+2025-Jun-10 08:03:39.889196 ug8swkgw848cckow84kgk8w8-075749404496
+2025-Jun-10 08:03:39.892904 Rolling update completed.
+2025-Jun-10 08:03:40.119609 Gracefully shutting down build container: jkcs4s4ok808s8kgkcso0s8s
+2025-Jun-10 08:03:40.383151 [CMD]: docker stop --time=30 jkcs4s4ok808s8kgkcso0s8s
+2025-Jun-10 08:03:40.383151 jkcs4s4ok808s8kgkcso0s8s
+2025-Jun-10 08:03:40.464159 [CMD]: docker rm -f jkcs4s4ok808s8kgkcso0s8s
+2025-Jun-10 08:03:40.464159 Error response from daemon: removal of container jkcs4s4ok808s8kgkcso0s8s is already in progress

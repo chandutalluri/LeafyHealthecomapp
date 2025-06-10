@@ -43,9 +43,9 @@ NEXT_TELEMETRY_DISABLED=1
 
 ## Deployment Process
 1. Coolify clones repository and builds Docker image
-2. Installs Node.js 20 and dependencies
-3. Builds frontend applications with error handling
-4. Starts complete platform with all microservices
+2. Installs Node.js 20 and backend dependencies only
+3. Skips frontend build (frontend runs in development mode internally)
+4. Starts complete platform with all 19 microservices
 5. Enables health monitoring and API gateway routing
 
 ## Monitoring Endpoints
