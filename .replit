@@ -1,0 +1,175 @@
+modules = ["python-3.11", "nodejs-20", "postgresql-16"]
+
+[nix]
+channel = "stable-24_05"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Complete Platform"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Frontend Server"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Admin Portal Server"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Remaining Frontend Apps"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Multi-Language Service"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Direct Data Gateway"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Domain Generator API"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Reporting Management Service"
+
+[[workflows.workflow]]
+name = "Complete Platform"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node complete-platform-starter.js"
+waitForPort = 8080
+
+[[workflows.workflow]]
+name = "Frontend Server"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd frontend/apps/ecommerce-web && npm run dev"
+waitForPort = 3000
+
+[[workflows.workflow]]
+name = "Admin Portal Server"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd frontend/apps/admin-portal && npm run dev"
+waitForPort = 3002
+
+[[workflows.workflow]]
+name = "Remaining Frontend Apps"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd frontend && node start-remaining-apps.js"
+waitForPort = 3001
+
+[[workflows.workflow]]
+name = "Multi-Language Service"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd backend/domains/multi-language-management && node server.js"
+waitForPort = 3050
+
+[[workflows.workflow]]
+name = "Direct Data Gateway"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd server && node direct-data-gateway.js"
+waitForPort = 8081
+
+[[workflows.workflow]]
+name = "Domain Generator API"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd server && node domain-generator-api.js"
+waitForPort = 8082
+
+[[workflows.workflow]]
+name = "Reporting Management Service"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd backend/domains/reporting-management && node server.js"
+waitForPort = 3065
+
+[[ports]]
+localPort = 3000
+externalPort = 3000
+
+[[ports]]
+localPort = 3001
+externalPort = 3001
+
+[[ports]]
+localPort = 3002
+externalPort = 3002
+
+[[ports]]
+localPort = 3003
+externalPort = 3003
+
+[[ports]]
+localPort = 3004
+externalPort = 4200
+
+[[ports]]
+localPort = 3010
+
+[[ports]]
+localPort = 3011
+
+[[ports]]
+localPort = 3012
+
+[[ports]]
+localPort = 3020
+
+[[ports]]
+localPort = 3050
+externalPort = 5173
+
+[[ports]]
+localPort = 3065
+externalPort = 6800
+
+[[ports]]
+localPort = 5000
+externalPort = 5000
+
+[[ports]]
+localPort = 8080
+externalPort = 80
+
+[[ports]]
+localPort = 8081
+externalPort = 8081
+
+[[ports]]
+localPort = 8082
+externalPort = 6000
+
+[deployment]
+run = ["sh", "-c", "cd backend/domains/identity-access && npm run build && node dist/backend/domains/identity-access/src/main.js"]
