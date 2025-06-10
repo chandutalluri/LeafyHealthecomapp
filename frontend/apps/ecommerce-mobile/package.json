@@ -21,12 +21,7 @@
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
     "tailwind-merge": "2.5.4",
-    "framer-motion": "11.11.17",
-    "@leafyhealth/ui-kit": "workspace:*",
-    "@leafyhealth/api-client": "workspace:*",
-    "@leafyhealth/auth": "workspace:*",
-    "@leafyhealth/config": "workspace:*",
-    "@leafyhealth/utils": "workspace:*"
+    "framer-motion": "11.11.17"
   },
   "devDependencies": {
     "@types/node": "22.9.0",

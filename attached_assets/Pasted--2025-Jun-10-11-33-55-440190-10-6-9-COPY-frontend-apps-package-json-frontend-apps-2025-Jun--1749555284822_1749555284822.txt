@@ -1,0 +1,83 @@
+ 2025-Jun-10 11:33:55.440190 #10 [6/9] COPY frontend/apps/*/package.json frontend/apps/*/
+2025-Jun-10 11:33:55.440190 #10 DONE 0.1s
+2025-Jun-10 11:33:55.440190
+2025-Jun-10 11:33:55.440190 #11 [7/9] RUN npm ci --workspaces --include-workspace-root && npm cache clean --force
+2025-Jun-10 11:33:55.802160 #11 0.517 npm error No workspaces found!
+2025-Jun-10 11:33:55.852983 #11 0.518 npm error A complete log of this run can be found in: /root/.npm/_logs/2025-06-10T11_33_55_412Z-debug-0.log
+2025-Jun-10 11:33:55.852983 #11 ERROR: process "/bin/sh -c npm ci --workspaces --include-workspace-root && npm cache clean --force" did not complete successfully: exit code: 1
+2025-Jun-10 11:33:55.852983 ------
+2025-Jun-10 11:33:55.852983 > [7/9] RUN npm ci --workspaces --include-workspace-root && npm cache clean --force:
+2025-Jun-10 11:33:55.852983 0.517 npm error No workspaces found!
+2025-Jun-10 11:33:55.852983 0.518 npm error A complete log of this run can be found in: /root/.npm/_logs/2025-06-10T11_33_55_412Z-debug-0.log
+2025-Jun-10 11:33:55.852983 ------
+2025-Jun-10 11:33:55.861105 Dockerfile:12
+2025-Jun-10 11:33:55.861105 --------------------
+2025-Jun-10 11:33:55.861105 10 |
+2025-Jun-10 11:33:55.861105 11 |     # Single install for the whole monorepo
+2025-Jun-10 11:33:55.861105 12 | >>> RUN npm ci --workspaces --include-workspace-root && npm cache clean --force
+2025-Jun-10 11:33:55.861105 13 |
+2025-Jun-10 11:33:55.861105 14 |     # Copy the rest of the source
+2025-Jun-10 11:33:55.861105 --------------------
+2025-Jun-10 11:33:55.861105 ERROR: failed to solve: process "/bin/sh -c npm ci --workspaces --include-workspace-root && npm cache clean --force" did not complete successfully: exit code: 1
+2025-Jun-10 11:33:55.867463 exit status 1
+2025-Jun-10 11:33:55.890524 Oops something is not okay, are you okay? 😢
+2025-Jun-10 11:33:55.896287 #0 building with "default" instance using docker driver
+2025-Jun-10 11:33:55.896287
+2025-Jun-10 11:33:55.896287 #1 [internal] load build definition from Dockerfile
+2025-Jun-10 11:33:55.896287 #1 transferring dockerfile: 592B done
+2025-Jun-10 11:33:55.896287 #1 DONE 0.0s
+2025-Jun-10 11:33:55.896287
+2025-Jun-10 11:33:55.896287 #2 [internal] load metadata for docker.io/library/node:20-alpine
+2025-Jun-10 11:33:55.896287 #2 DONE 2.2s
+2025-Jun-10 11:33:55.896287
+2025-Jun-10 11:33:55.896287 #3 [internal] load .dockerignore
+2025-Jun-10 11:33:55.896287 #3 transferring context: 728B done
+2025-Jun-10 11:33:55.896287 #3 DONE 0.0s
+2025-Jun-10 11:33:55.896287
+2025-Jun-10 11:33:55.896287 #4 [1/9] FROM docker.io/library/node:20-alpine@sha256:d3507a213936fe4ef54760a186e113db5188472d9efdf491686bd94580a1c1e8
+2025-Jun-10 11:33:55.896287 #4 CACHED
+2025-Jun-10 11:33:55.896287
+2025-Jun-10 11:33:55.896287 #5 [2/9] WORKDIR /app
+2025-Jun-10 11:33:55.896287 #5 DONE 0.1s
+2025-Jun-10 11:33:55.896287
+2025-Jun-10 11:33:55.896287 #6 [internal] load build context
+2025-Jun-10 11:33:55.896287 #6 transferring context: 2.83MB 0.1s done
+2025-Jun-10 11:33:55.896287 #6 DONE 0.1s
+2025-Jun-10 11:33:55.896287
+2025-Jun-10 11:33:55.896287 #7 [3/9] COPY package*.json ./
+2025-Jun-10 11:33:55.896287 #7 DONE 0.1s
+2025-Jun-10 11:33:55.896287
+2025-Jun-10 11:33:55.896287 #8 [4/9] COPY frontend/package.json frontend/
+2025-Jun-10 11:33:55.896287 #8 DONE 0.0s
+2025-Jun-10 11:33:55.896287
+2025-Jun-10 11:33:55.896287 #9 [5/9] COPY frontend/packages/*/package.json frontend/packages/*/
+2025-Jun-10 11:33:55.896287 #9 DONE 0.0s
+2025-Jun-10 11:33:55.896287
+2025-Jun-10 11:33:55.896287 #10 [6/9] COPY frontend/apps/*/package.json frontend/apps/*/
+2025-Jun-10 11:33:55.896287 #10 DONE 0.1s
+2025-Jun-10 11:33:55.896287
+2025-Jun-10 11:33:55.896287 #11 [7/9] RUN npm ci --workspaces --include-workspace-root && npm cache clean --force
+2025-Jun-10 11:33:55.896287 #11 0.517 npm error No workspaces found!
+2025-Jun-10 11:33:55.896287 #11 0.518 npm error A complete log of this run can be found in: /root/.npm/_logs/2025-06-10T11_33_55_412Z-debug-0.log
+2025-Jun-10 11:33:55.896287 #11 ERROR: process "/bin/sh -c npm ci --workspaces --include-workspace-root && npm cache clean --force" did not complete successfully: exit code: 1
+2025-Jun-10 11:33:55.896287 ------
+2025-Jun-10 11:33:55.896287 > [7/9] RUN npm ci --workspaces --include-workspace-root && npm cache clean --force:
+2025-Jun-10 11:33:55.896287 0.517 npm error No workspaces found!
+2025-Jun-10 11:33:55.896287 0.518 npm error A complete log of this run can be found in: /root/.npm/_logs/2025-06-10T11_33_55_412Z-debug-0.log
+2025-Jun-10 11:33:55.896287 ------
+2025-Jun-10 11:33:55.896287 Dockerfile:12
+2025-Jun-10 11:33:55.896287 --------------------
+2025-Jun-10 11:33:55.896287 10 |
+2025-Jun-10 11:33:55.896287 11 |     # Single install for the whole monorepo
+2025-Jun-10 11:33:55.896287 12 | >>> RUN npm ci --workspaces --include-workspace-root && npm cache clean --force
+2025-Jun-10 11:33:55.896287 13 |
+2025-Jun-10 11:33:55.896287 14 |     # Copy the rest of the source
+2025-Jun-10 11:33:55.896287 --------------------
+2025-Jun-10 11:33:55.896287 ERROR: failed to solve: process "/bin/sh -c npm ci --workspaces --include-workspace-root && npm cache clean --force" did not complete successfully: exit code: 1
+2025-Jun-10 11:33:55.896287 exit status 1
+2025-Jun-10 11:33:55.898715 Deployment failed. Removing the new version of your application.
+2025-Jun-10 11:33:56.173481 Gracefully shutting down build container: bkosowkk80gsg88s0wcwok8w
+2025-Jun-10 11:33:56.402449 [CMD]: docker stop --time=30 bkosowkk80gsg88s0wcwok8w
+2025-Jun-10 11:33:56.402449 bkosowkk80gsg88s0wcwok8w
+2025-Jun-10 11:33:56.485098 [CMD]: docker rm -f bkosowkk80gsg88s0wcwok8w
+2025-Jun-10 11:33:56.485098 Error response from daemon: No such container: bkosowkk80gsg88s0wcwok8w 

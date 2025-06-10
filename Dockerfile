@@ -2,20 +2,22 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Copy root + workspace manifests only
+# Install root dependencies first
 COPY package*.json ./
-COPY frontend/package.json frontend/
-COPY frontend/packages/*/package.json frontend/packages/*/
-COPY frontend/apps/*/package.json frontend/apps/*/
+RUN npm ci --ignore-scripts && npm cache clean --force
 
-# Single install for the whole monorepo
-RUN npm ci --workspaces --include-workspace-root && npm cache clean --force
-
-# Copy the rest of the source
+# Copy source files
 COPY . .
 
-# Build frontend applications using workspace
-RUN cd frontend && npm install && npm run build
+# Remove workspace dependencies to avoid protocol errors
+RUN node build-fix-workspace-deps.js
+
+# Build apps individually without workspace dependencies
+RUN cd frontend/apps/super-admin && npm install --legacy-peer-deps && npm run build
+RUN cd frontend/apps/admin-portal && npm install --legacy-peer-deps && npm run build
+RUN cd frontend/apps/ecommerce-web && npm install --legacy-peer-deps && npm run build
+RUN cd frontend/apps/ecommerce-mobile && npm install --legacy-peer-deps && npm run build
+RUN cd frontend/apps/ops-delivery && npm install --legacy-peer-deps && npm run build
 
 EXPOSE 8080
 

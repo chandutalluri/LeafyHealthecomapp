@@ -16,12 +16,7 @@
     "lucide-react": "^0.400.0",
     "@tanstack/react-query": "^4.29.0",
     "@tanstack/react-query-devtools": "^4.29.0",
-    "react-hot-toast": "^2.4.1",
-    "@leafyhealth/ui-kit": "workspace:*",
-    "@leafyhealth/api-client": "workspace:*",
-    "@leafyhealth/auth": "workspace:*",
-    "@leafyhealth/config": "workspace:*",
-    "@leafyhealth/utils": "workspace:*"
+    "react-hot-toast": "^2.4.1"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
