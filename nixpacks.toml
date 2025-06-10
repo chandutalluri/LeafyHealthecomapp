@@ -3,6 +3,9 @@ NODE_ENV = "production"
 PORT = "8080"
 NPM_CONFIG_PRODUCTION = "false"
 
+[build]
+nixPkgs = ["nodejs", "npm"]
+
 [phases.install]
 cmds = [
   "npm ci",
