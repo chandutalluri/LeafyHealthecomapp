@@ -1,0 +1,139 @@
+ 2025-Jun-10 11:05:31.741698 #14 [10/18] RUN npm install
+2025-Jun-10 11:05:32.251668 #14 0.659 npm error code EDUPLICATEWORKSPACE
+2025-Jun-10 11:05:32.450363 #14 0.660 npm error must not have multiple workspaces with the same name
+2025-Jun-10 11:05:32.450363 #14 0.660 npm error package '@leafyhealth/super-admin' has conflicts in the following paths:
+2025-Jun-10 11:05:32.450363 #14 0.660 npm error     /app/frontend/apps/*
+2025-Jun-10 11:05:32.450363 #14 0.660 npm error     /app/frontend/apps/super-admin
+2025-Jun-10 11:05:32.450363 #14 0.662 npm error A complete log of this run can be found in: /root/.npm/_logs/2025-06-10T11_05_31_734Z-debug-0.log
+2025-Jun-10 11:05:32.450363 #14 ERROR: process "/bin/sh -c npm install" did not complete successfully: exit code: 1
+2025-Jun-10 11:05:32.487157 ------
+2025-Jun-10 11:05:32.487157 > [10/18] RUN npm install:
+2025-Jun-10 11:05:32.487157 0.659 npm error code EDUPLICATEWORKSPACE
+2025-Jun-10 11:05:32.487157 0.660 npm error must not have multiple workspaces with the same name
+2025-Jun-10 11:05:32.487157 0.660 npm error package '@leafyhealth/super-admin' has conflicts in the following paths:
+2025-Jun-10 11:05:32.487157 0.660 npm error     /app/frontend/apps/*
+2025-Jun-10 11:05:32.487157 0.660 npm error     /app/frontend/apps/super-admin
+2025-Jun-10 11:05:32.487157 0.662 npm error A complete log of this run can be found in: /root/.npm/_logs/2025-06-10T11_05_31_734Z-debug-0.log
+2025-Jun-10 11:05:32.487157 ------
+2025-Jun-10 11:05:32.518957 Dockerfile:22
+2025-Jun-10 11:05:32.518957 --------------------
+2025-Jun-10 11:05:32.518957 20 |     # Build frontend applications
+2025-Jun-10 11:05:32.518957 21 |     WORKDIR /app/frontend
+2025-Jun-10 11:05:32.518957 22 | >>> RUN npm install
+2025-Jun-10 11:05:32.518957 23 |     RUN cd apps/super-admin && npm install && npm run build
+2025-Jun-10 11:05:32.518957 24 |     RUN cd apps/admin-portal && npm install && npm run build
+2025-Jun-10 11:05:32.518957 --------------------
+2025-Jun-10 11:05:32.518957 ERROR: failed to solve: process "/bin/sh -c npm install" did not complete successfully: exit code: 1
+2025-Jun-10 11:05:32.590820 exit status 1
+2025-Jun-10 11:05:32.613232 Oops something is not okay, are you okay? 😢
+2025-Jun-10 11:05:32.617354 #0 building with "default" instance using docker driver
+2025-Jun-10 11:05:32.617354
+2025-Jun-10 11:05:32.617354 #1 [internal] load build definition from Dockerfile
+2025-Jun-10 11:05:32.617354 #1 transferring dockerfile: 1.51kB done
+2025-Jun-10 11:05:32.617354 #1 DONE 0.0s
+2025-Jun-10 11:05:32.617354
+2025-Jun-10 11:05:32.617354 #2 [internal] load metadata for docker.io/library/node:20-alpine
+2025-Jun-10 11:05:32.617354 #2 DONE 2.5s
+2025-Jun-10 11:05:32.617354
+2025-Jun-10 11:05:32.617354 #3 [internal] load .dockerignore
+2025-Jun-10 11:05:32.617354 #3 transferring context: 728B done
+2025-Jun-10 11:05:32.617354 #3 DONE 0.0s
+2025-Jun-10 11:05:32.617354
+2025-Jun-10 11:05:32.617354 #4 [ 1/18] FROM docker.io/library/node:20-alpine@sha256:d3507a213936fe4ef54760a186e113db5188472d9efdf491686bd94580a1c1e8
+2025-Jun-10 11:05:32.617354 #4 DONE 0.0s
+2025-Jun-10 11:05:32.617354
+2025-Jun-10 11:05:32.617354 #5 [internal] load build context
+2025-Jun-10 11:05:32.617354 #5 transferring context: 2.77MB 0.1s done
+2025-Jun-10 11:05:32.617354 #5 DONE 0.1s
+2025-Jun-10 11:05:32.617354
+2025-Jun-10 11:05:32.617354 #6 [ 2/18] RUN apk add --no-cache libc6-compat curl dumb-init
+2025-Jun-10 11:05:32.617354 #6 CACHED
+2025-Jun-10 11:05:32.617354
+2025-Jun-10 11:05:32.617354 #7 [ 3/18] WORKDIR /app
+2025-Jun-10 11:05:32.617354 #7 CACHED
+2025-Jun-10 11:05:32.617354
+2025-Jun-10 11:05:32.617354 #8 [ 4/18] COPY package*.json ./
+2025-Jun-10 11:05:32.617354 #8 CACHED
+2025-Jun-10 11:05:32.617354
+2025-Jun-10 11:05:32.617354 #9 [ 5/18] COPY frontend/package.json frontend/
+2025-Jun-10 11:05:32.617354 #9 DONE 0.1s
+2025-Jun-10 11:05:32.617354
+2025-Jun-10 11:05:32.617354 #10 [ 6/18] COPY frontend/apps/*/package.json frontend/apps/*/
+2025-Jun-10 11:05:32.617354 #10 DONE 0.0s
+2025-Jun-10 11:05:32.617354
+2025-Jun-10 11:05:32.617354 #11 [ 7/18] RUN npm ci --ignore-scripts && npm cache clean --force
+2025-Jun-10 11:05:32.617354 #11 7.755 npm warn deprecated workbox-cacheable-response@6.6.0: workbox-background-sync@6.6.0
+2025-Jun-10 11:05:32.617354 #11 8.042 npm warn deprecated workbox-google-analytics@6.6.0: It is not compatible with newer versions of GA starting with v4, as long as you are using GAv3 it should be ok, but the package is not longer being maintained
+2025-Jun-10 11:05:32.617354 #11 8.738 npm warn deprecated sourcemap-codec@1.4.8: Please use @jridgewell/sourcemap-codec instead
+2025-Jun-10 11:05:32.617354 #11 9.304 npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+2025-Jun-10 11:05:32.617354 #11 13.52 npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+2025-Jun-10 11:05:32.617354 #11 27.96 npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+2025-Jun-10 11:05:32.617354 #11 28.95 npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+2025-Jun-10 11:05:32.617354 #11 31.88 npm warn deprecated rollup-plugin-terser@7.0.2: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-terser
+2025-Jun-10 11:05:32.617354 #11 33.22 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-Jun-10 11:05:32.617354 #11 34.72 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-Jun-10 11:05:32.617354 #11 34.76 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-Jun-10 11:05:32.617354 #11 35.00 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-Jun-10 11:05:32.617354 #11 36.71 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-Jun-10 11:05:32.617354 #11 62.66
+2025-Jun-10 11:05:32.617354 #11 62.66 added 1401 packages, and audited 1402 packages in 1m
+2025-Jun-10 11:05:32.617354 #11 62.66
+2025-Jun-10 11:05:32.617354 #11 62.66 228 packages are looking for funding
+2025-Jun-10 11:05:32.617354 #11 62.66   run `npm fund` for details
+2025-Jun-10 11:05:32.617354 #11 62.70
+2025-Jun-10 11:05:32.617354 #11 62.70 12 vulnerabilities (10 moderate, 2 high)
+2025-Jun-10 11:05:32.617354 #11 62.70
+2025-Jun-10 11:05:32.617354 #11 62.70 To address issues that do not require attention, run:
+2025-Jun-10 11:05:32.617354 #11 62.70   npm audit fix
+2025-Jun-10 11:05:32.617354 #11 62.70
+2025-Jun-10 11:05:32.617354 #11 62.70 To address all issues possible (including breaking changes), run:
+2025-Jun-10 11:05:32.617354 #11 62.70   npm audit fix --force
+2025-Jun-10 11:05:32.617354 #11 62.70
+2025-Jun-10 11:05:32.617354 #11 62.70 Some issues need review, and may require choosing
+2025-Jun-10 11:05:32.617354 #11 62.70 a different dependency.
+2025-Jun-10 11:05:32.617354 #11 62.70
+2025-Jun-10 11:05:32.617354 #11 62.70 Run `npm audit` for details.
+2025-Jun-10 11:05:32.617354 #11 62.73 npm notice
+2025-Jun-10 11:05:32.617354 #11 62.73 npm notice New major version of npm available! 10.8.2 -> 11.4.1
+2025-Jun-10 11:05:32.617354 #11 62.73 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.4.1
+2025-Jun-10 11:05:32.617354 #11 62.73 npm notice To update run: npm install -g npm@11.4.1
+2025-Jun-10 11:05:32.617354 #11 62.73 npm notice
+2025-Jun-10 11:05:32.617354 #11 64.14 npm warn using --force Recommended protections disabled.
+2025-Jun-10 11:05:32.617354 #11 DONE 65.2s
+2025-Jun-10 11:05:32.617354
+2025-Jun-10 11:05:32.617354 #12 [ 8/18] COPY . .
+2025-Jun-10 11:05:32.617354 #12 DONE 0.3s
+2025-Jun-10 11:05:32.617354
+2025-Jun-10 11:05:32.617354 #13 [ 9/18] WORKDIR /app/frontend
+2025-Jun-10 11:05:32.617354 #13 DONE 0.0s
+2025-Jun-10 11:05:32.617354
+2025-Jun-10 11:05:32.617354 #14 [10/18] RUN npm install
+2025-Jun-10 11:05:32.617354 #14 0.659 npm error code EDUPLICATEWORKSPACE
+2025-Jun-10 11:05:32.617354 #14 0.660 npm error must not have multiple workspaces with the same name
+2025-Jun-10 11:05:32.617354 #14 0.660 npm error package '@leafyhealth/super-admin' has conflicts in the following paths:
+2025-Jun-10 11:05:32.617354 #14 0.660 npm error     /app/frontend/apps/*
+2025-Jun-10 11:05:32.617354 #14 0.660 npm error     /app/frontend/apps/super-admin
+2025-Jun-10 11:05:32.617354 #14 0.662 npm error A complete log of this run can be found in: /root/.npm/_logs/2025-06-10T11_05_31_734Z-debug-0.log
+2025-Jun-10 11:05:32.617354 #14 ERROR: process "/bin/sh -c npm install" did not complete successfully: exit code: 1
+2025-Jun-10 11:05:32.617354 ------
+2025-Jun-10 11:05:32.617354 > [10/18] RUN npm install:
+2025-Jun-10 11:05:32.617354 0.659 npm error code EDUPLICATEWORKSPACE
+2025-Jun-10 11:05:32.617354 0.660 npm error must not have multiple workspaces with the same name
+2025-Jun-10 11:05:32.617354 0.660 npm error package '@leafyhealth/super-admin' has conflicts in the following paths:
+2025-Jun-10 11:05:32.617354 0.660 npm error     /app/frontend/apps/*
+2025-Jun-10 11:05:32.617354 0.660 npm error     /app/frontend/apps/super-admin
+2025-Jun-10 11:05:32.617354 0.662 npm error A complete log of this run can be found in: /root/.npm/_logs/2025-06-10T11_05_31_734Z-debug-0.log
+2025-Jun-10 11:05:32.617354 ------
+2025-Jun-10 11:05:32.617354 Dockerfile:22
+2025-Jun-10 11:05:32.617354 --------------------
+2025-Jun-10 11:05:32.617354 20 |     # Build frontend applications
+2025-Jun-10 11:05:32.617354 21 |     WORKDIR /app/frontend
+2025-Jun-10 11:05:32.617354 22 | >>> RUN npm install
+2025-Jun-10 11:05:32.617354 23 |     RUN cd apps/super-admin && npm install && npm run build
+2025-Jun-10 11:05:32.617354 24 |     RUN cd apps/admin-portal && npm install && npm run build
+2025-Jun-10 11:05:32.617354 --------------------
+2025-Jun-10 11:05:32.617354 ERROR: failed to solve: process "/bin/sh -c npm install" did not complete successfully: exit code: 1
+2025-Jun-10 11:05:32.617354 exit status 1
+2025-Jun-10 11:05:32.620477 Deployment failed. Removing the new version of your application.
+2025-Jun-10 11:05:32.936547 Gracefully shutting down build container: m0g8ko0g8g04gc4c0gkgcgsc
+2025-Jun-10 11:05:33.159088 [CMD]: docker stop --time=30 m0g8ko0g8g04gc4c0gkgcgsc 

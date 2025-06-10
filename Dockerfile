@@ -6,30 +6,21 @@ RUN apk add --no-cache libc6-compat curl dumb-init
 
 WORKDIR /app
 
-# Copy package files first for better caching
+# Copy and install root dependencies
 COPY package*.json ./
-COPY frontend/package.json frontend/
-COPY frontend/apps/*/package.json frontend/apps/*/
-
-# Install root dependencies
 RUN npm ci --ignore-scripts && npm cache clean --force
 
 # Copy application files
 COPY . .
 
-# Build frontend applications
-WORKDIR /app/frontend
-RUN npm install
-RUN cd apps/super-admin && npm install && npm run build
-RUN cd apps/admin-portal && npm install && npm run build  
-RUN cd apps/ecommerce-web && npm install && npm run build
-RUN cd apps/ecommerce-mobile && npm install && npm run build
-RUN cd apps/ops-delivery && npm install && npm run build
+# Build each frontend app individually to avoid workspace conflicts
+RUN cd frontend/apps/super-admin && npm install && npm run build
+RUN cd frontend/apps/admin-portal && npm install && npm run build  
+RUN cd frontend/apps/ecommerce-web && npm install && npm run build
+RUN cd frontend/apps/ecommerce-mobile && npm install && npm run build
+RUN cd frontend/apps/ops-delivery && npm install && npm run build
 
-# Return to app directory
-WORKDIR /app
-
-# Expose all ports
+# Expose all required ports
 EXPOSE 8080 3000 3001 3002 3003 3004
 
 # Create non-root user

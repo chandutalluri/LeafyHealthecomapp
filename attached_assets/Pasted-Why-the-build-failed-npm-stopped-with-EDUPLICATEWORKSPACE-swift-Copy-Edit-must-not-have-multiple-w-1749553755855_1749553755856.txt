@@ -1,0 +1,94 @@
+Why the build failed
+npm stopped with EDUPLICATEWORKSPACE:
+
+swift
+Copy
+Edit
+must not have multiple workspaces with the same name
+package "@leafyhealth/super-admin" has conflicts in:
+  /app/frontend/apps/*
+  /app/frontend/apps/super-admin
+npm workspaces need every package name to be unique and every workspace path pattern to be unique.
+Because you list both frontend/apps/* and frontend/apps/super-admin, the same package shows up twice and the install aborts.
+
+1 — Fix the workspace layout
+a. Front-end package.json (or monorepo root)
+jsonc
+Copy
+Edit
+{
+  "private": true,
+  "workspaces": [
+    // ONE pattern is enough
+    "apps/*"
+    // ✖ REMOVE "apps/super-admin"
+  ]
+}
+b. Every app’s package.json
+Make sure each name is unique:
+
+json
+Copy
+Edit
+// frontend/apps/super-admin/package.json
+{
+  "name": "@leafyhealth/super-admin",
+  ...
+}
+
+// frontend/apps/admin-portal/package.json
+{
+  "name": "@leafyhealth/admin-portal",
+  ...
+}
+🔍 Run
+grep -R '"name": "@leafyhealth/super-admin"' frontend/apps
+to confirm there’s only one hit.
+
+2 — Verify locally
+bash
+Copy
+Edit
+cd frontend       # or repo root if workspaces are declared there
+rm -rf node_modules package-lock.json
+npm install       # should complete with no EDUPLICATEWORKSPACE
+npm run build -ws # optional: build all workspaces
+If you still see a duplicate error, run:
+
+bash
+Copy
+Edit
+npm workspaces list --json | jq '.[].name' | sort | uniq -d
+and rename or remove any remaining duplicates.
+
+3 — Streamline the Dockerfile
+You no longer need a second npm install inside /app/frontend.
+Let one install handle the whole monorepo:
+
+dockerfile
+Copy
+Edit
+FROM node:20-alpine
+
+WORKDIR /app
+COPY package*.json ./
+COPY frontend/package.json frontend/
+COPY frontend/apps/*/package.json frontend/apps/*/
+
+# install all workspaces in a single step
+RUN npm ci --workspaces --include-workspace-root && npm cache clean --force
+
+# copy the rest of the source
+COPY . .
+
+# build every workspace that has a build script
+RUN npm run build --workspaces --if-present
+
+EXPOSE 8080
+CMD ["node", "complete-platform-starter.js"]
+4 — Redeploy in Coolify
+Commit & push the workspace-name fixes and Dockerfile update.
+
+Trigger a new deployment in Coolify.
+
+The EDUPLICATEWORKSPACE error should disappear; the build should progress to the next step.
