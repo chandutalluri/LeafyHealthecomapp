@@ -1,0 +1,15 @@
+[phases.setup]
+nixPkgs = ["nodejs-20_x", "npm"]
+
+[phases.install]
+cmds = ["npm ci"]
+
+[phases.build]
+cmds = ["npm run build"]
+
+[start]
+cmd = "node complete-platform-starter.js"
+
+[variables]
+NODE_ENV = "production"
+PORT = "8080"
