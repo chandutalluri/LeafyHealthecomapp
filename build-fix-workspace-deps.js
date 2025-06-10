@@ -2,22 +2,13 @@
 
 /**
  * Workspace Dependencies Build Fix
- * Temporarily replaces workspace:* dependencies with compatible versions for Docker builds
+ * Completely removes workspace dependencies and cleans lockfiles for Docker builds
  */
 
 const fs = require('fs');
 const path = require('path');
 
 console.log('🔧 Fixing workspace dependencies for Docker build...');
-
-// Define replacement dependencies for workspace packages
-const workspaceReplacements = {
-  '@leafyhealth/ui-kit': '^1.0.0',
-  '@leafyhealth/api-client': '^1.0.0', 
-  '@leafyhealth/auth': '^1.0.0',
-  '@leafyhealth/config': '^1.0.0',
-  '@leafyhealth/utils': '^1.0.0'
-};
 
 // Apps to fix
 const apps = [
@@ -30,20 +21,40 @@ const apps = [
 
 for (const app of apps) {
   const packagePath = path.join(app, 'package.json');
+  const lockPath = path.join(app, 'package-lock.json');
+  const nodeModulesPath = path.join(app, 'node_modules');
   
   if (fs.existsSync(packagePath)) {
     const packageJson = JSON.parse(fs.readFileSync(packagePath, 'utf8'));
     let modified = false;
     
-    // Replace workspace dependencies in dependencies
+    // Remove ALL workspace dependencies
     if (packageJson.dependencies) {
-      for (const [dep, version] of Object.entries(packageJson.dependencies)) {
-        if (version === 'workspace:*' && workspaceReplacements[dep]) {
-          // Remove workspace dependency
-          delete packageJson.dependencies[dep];
-          modified = true;
-          console.log(`  ✅ Removed workspace dependency ${dep} from ${app}`);
-        }
+      const workspaceDeps = Object.keys(packageJson.dependencies).filter(dep => 
+        packageJson.dependencies[dep] === 'workspace:*' || 
+        packageJson.dependencies[dep].startsWith('workspace:') ||
+        dep.startsWith('@leafyhealth/')
+      );
+      
+      for (const dep of workspaceDeps) {
+        delete packageJson.dependencies[dep];
+        modified = true;
+        console.log(`  ✅ Removed workspace dependency ${dep} from ${app}`);
+      }
+    }
+    
+    // Also check devDependencies
+    if (packageJson.devDependencies) {
+      const workspaceDeps = Object.keys(packageJson.devDependencies).filter(dep => 
+        packageJson.devDependencies[dep] === 'workspace:*' || 
+        packageJson.devDependencies[dep].startsWith('workspace:') ||
+        dep.startsWith('@leafyhealth/')
+      );
+      
+      for (const dep of workspaceDeps) {
+        delete packageJson.devDependencies[dep];
+        modified = true;
+        console.log(`  ✅ Removed workspace devDependency ${dep} from ${app}`);
       }
     }
     
@@ -51,7 +62,19 @@ for (const app of apps) {
       fs.writeFileSync(packagePath, JSON.stringify(packageJson, null, 2));
       console.log(`  📝 Updated ${packagePath}`);
     }
+    
+    // Remove package-lock.json to force fresh install
+    if (fs.existsSync(lockPath)) {
+      fs.unlinkSync(lockPath);
+      console.log(`  🗑️  Removed ${lockPath}`);
+    }
+    
+    // Remove node_modules to ensure clean state
+    if (fs.existsSync(nodeModulesPath)) {
+      fs.rmSync(nodeModulesPath, { recursive: true, force: true });
+      console.log(`  🗑️  Removed ${nodeModulesPath}`);
+    }
   }
 }
 
-console.log('✅ Workspace dependencies fixed for Docker build');
+console.log('✅ Workspace dependencies completely removed for Docker build');

@@ -1,0 +1,174 @@
+ 2025-Jun-10 11:21:31.048282 #4 [ 1/14] FROM docker.io/library/node:20-alpine@sha256:d3507a213936fe4ef54760a186e113db5188472d9efdf491686bd94580a1c1e8
+2025-Jun-10 11:21:31.048282 #4 DONE 0.0s
+2025-Jun-10 11:21:31.052755 #5 [internal] load build context
+2025-Jun-10 11:21:31.244729 #5 transferring context: 2.81MB 0.1s done
+2025-Jun-10 11:21:31.244729 #5 DONE 0.2s
+2025-Jun-10 11:21:31.244729
+2025-Jun-10 11:21:31.244729 #6 [ 3/14] WORKDIR /app
+2025-Jun-10 11:21:31.244729 #6 CACHED
+2025-Jun-10 11:21:31.244729
+2025-Jun-10 11:21:31.244729 #7 [ 4/14] COPY package*.json ./
+2025-Jun-10 11:21:31.244729 #7 CACHED
+2025-Jun-10 11:21:31.244729
+2025-Jun-10 11:21:31.244729 #8 [ 2/14] RUN apk add --no-cache libc6-compat curl dumb-init
+2025-Jun-10 11:21:31.244729 #8 CACHED
+2025-Jun-10 11:21:31.244729
+2025-Jun-10 11:21:31.244729 #9 [ 5/14] RUN npm ci --ignore-scripts && npm cache clean --force
+2025-Jun-10 11:21:31.244729 #9 CACHED
+2025-Jun-10 11:21:31.244729
+2025-Jun-10 11:21:31.244729 #10 [ 6/14] COPY . .
+2025-Jun-10 11:21:31.244729 #10 DONE 0.1s
+2025-Jun-10 11:21:31.346572 #11 [ 7/14] RUN node build-fix-workspace-deps.js
+2025-Jun-10 11:21:31.346572 #11 0.094 🔧 Fixing workspace dependencies for Docker build...
+2025-Jun-10 11:21:31.346572 #11 0.096   ✅ Removed workspace dependency @leafyhealth/ui-kit from frontend/apps/super-admin
+2025-Jun-10 11:21:31.346572 #11 0.096   ✅ Removed workspace dependency @leafyhealth/api-client from frontend/apps/super-admin
+2025-Jun-10 11:21:31.346572 #11 0.096   ✅ Removed workspace dependency @leafyhealth/auth from frontend/apps/super-admin
+2025-Jun-10 11:21:31.346572 #11 0.096   ✅ Removed workspace dependency @leafyhealth/config from frontend/apps/super-admin
+2025-Jun-10 11:21:31.346572 #11 0.096   ✅ Removed workspace dependency @leafyhealth/utils from frontend/apps/super-admin
+2025-Jun-10 11:21:31.346572 #11 0.099   📝 Updated frontend/apps/super-admin/package.json
+2025-Jun-10 11:21:31.530432 #11 0.099   ✅ Removed workspace dependency @leafyhealth/ui-kit from frontend/apps/admin-portal
+2025-Jun-10 11:21:31.530432 #11 0.099   ✅ Removed workspace dependency @leafyhealth/api-client from frontend/apps/admin-portal
+2025-Jun-10 11:21:31.530432 #11 0.100   ✅ Removed workspace dependency @leafyhealth/auth from frontend/apps/admin-portal
+2025-Jun-10 11:21:31.530432 #11 0.100   ✅ Removed workspace dependency @leafyhealth/config from frontend/apps/admin-portal
+2025-Jun-10 11:21:31.530432 #11 0.100   ✅ Removed workspace dependency @leafyhealth/utils from frontend/apps/admin-portal
+2025-Jun-10 11:21:31.530432 #11 0.100   📝 Updated frontend/apps/admin-portal/package.json
+2025-Jun-10 11:21:31.530432 #11 0.101   ✅ Removed workspace dependency @leafyhealth/ui-kit from frontend/apps/ecommerce-web
+2025-Jun-10 11:21:31.530432 #11 0.101   ✅ Removed workspace dependency @leafyhealth/api-client from frontend/apps/ecommerce-web
+2025-Jun-10 11:21:31.530432 #11 0.101   ✅ Removed workspace dependency @leafyhealth/auth from frontend/apps/ecommerce-web
+2025-Jun-10 11:21:31.530432 #11 0.101   ✅ Removed workspace dependency @leafyhealth/config from frontend/apps/ecommerce-web
+2025-Jun-10 11:21:31.530432 #11 0.101   ✅ Removed workspace dependency @leafyhealth/utils from frontend/apps/ecommerce-web
+2025-Jun-10 11:21:31.530432 #11 0.102   📝 Updated frontend/apps/ecommerce-web/package.json
+2025-Jun-10 11:21:31.530432 #11 0.102   ✅ Removed workspace dependency @leafyhealth/ui-kit from frontend/apps/ecommerce-mobile
+2025-Jun-10 11:21:31.530432 #11 0.103   ✅ Removed workspace dependency @leafyhealth/api-client from frontend/apps/ecommerce-mobile
+2025-Jun-10 11:21:31.530432 #11 0.103   ✅ Removed workspace dependency @leafyhealth/auth from frontend/apps/ecommerce-mobile
+2025-Jun-10 11:21:31.530432 #11 0.103   ✅ Removed workspace dependency @leafyhealth/config from frontend/apps/ecommerce-mobile
+2025-Jun-10 11:21:31.530432 #11 0.103   ✅ Removed workspace dependency @leafyhealth/utils from frontend/apps/ecommerce-mobile
+2025-Jun-10 11:21:31.530432 #11 0.103   📝 Updated frontend/apps/ecommerce-mobile/package.json
+2025-Jun-10 11:21:31.530432 #11 0.103   ✅ Removed workspace dependency @leafyhealth/ui-kit from frontend/apps/ops-delivery
+2025-Jun-10 11:21:31.530432 #11 0.103   ✅ Removed workspace dependency @leafyhealth/api-client from frontend/apps/ops-delivery
+2025-Jun-10 11:21:31.530432 #11 0.103   ✅ Removed workspace dependency @leafyhealth/auth from frontend/apps/ops-delivery
+2025-Jun-10 11:21:31.530432 #11 0.104   ✅ Removed workspace dependency @leafyhealth/config from frontend/apps/ops-delivery
+2025-Jun-10 11:21:31.530432 #11 0.104   ✅ Removed workspace dependency @leafyhealth/utils from frontend/apps/ops-delivery
+2025-Jun-10 11:21:31.530432 #11 0.105   📝 Updated frontend/apps/ops-delivery/package.json
+2025-Jun-10 11:21:31.530432 #11 0.105 ✅ Workspace dependencies fixed for Docker build
+2025-Jun-10 11:21:31.530432 #11 DONE 0.1s
+2025-Jun-10 11:21:31.530432
+2025-Jun-10 11:21:31.530432 #12 [ 8/14] RUN cd frontend/apps/super-admin && npm install --legacy-peer-deps && npm run build
+2025-Jun-10 11:21:46.225757 #12 14.84 npm error code EUNSUPPORTEDPROTOCOL
+2025-Jun-10 11:21:46.382220 #12 14.84 npm error Unsupported URL Type "workspace:": workspace:*
+2025-Jun-10 11:21:46.382220 #12 14.85 npm error A complete log of this run can be found in: /root/.npm/_logs/2025-06-10T11_21_31_492Z-debug-0.log
+2025-Jun-10 11:21:46.391050 #12 ERROR: process "/bin/sh -c cd frontend/apps/super-admin && npm install --legacy-peer-deps && npm run build" did not complete successfully: exit code: 1
+2025-Jun-10 11:21:46.405540 ------
+2025-Jun-10 11:21:46.405540 > [ 8/14] RUN cd frontend/apps/super-admin && npm install --legacy-peer-deps && npm run build:
+2025-Jun-10 11:21:46.405540 14.84 npm error code EUNSUPPORTEDPROTOCOL
+2025-Jun-10 11:21:46.405540 14.84 npm error Unsupported URL Type "workspace:": workspace:*
+2025-Jun-10 11:21:46.405540 14.85 npm error A complete log of this run can be found in: /root/.npm/_logs/2025-06-10T11_21_31_492Z-debug-0.log
+2025-Jun-10 11:21:46.405540 ------
+2025-Jun-10 11:21:46.413205 Dockerfile:20
+2025-Jun-10 11:21:46.413205 --------------------
+2025-Jun-10 11:21:46.413205 18 |
+2025-Jun-10 11:21:46.413205 19 |     # Build frontend apps (workspace dependencies removed)
+2025-Jun-10 11:21:46.413205 20 | >>> RUN cd frontend/apps/super-admin && npm install --legacy-peer-deps && npm run build
+2025-Jun-10 11:21:46.413205 21 |     RUN cd frontend/apps/admin-portal && npm install --legacy-peer-deps && npm run build
+2025-Jun-10 11:21:46.413205 22 |     RUN cd frontend/apps/ecommerce-web && npm install --legacy-peer-deps && npm run build
+2025-Jun-10 11:21:46.413205 --------------------
+2025-Jun-10 11:21:46.413205 ERROR: failed to solve: process "/bin/sh -c cd frontend/apps/super-admin && npm install --legacy-peer-deps && npm run build" did not complete successfully: exit code: 1
+2025-Jun-10 11:21:46.422431 exit status 1
+2025-Jun-10 11:21:46.444394 Oops something is not okay, are you okay? 😢
+2025-Jun-10 11:21:46.446414 #0 building with "default" instance using docker driver
+2025-Jun-10 11:21:46.446414
+2025-Jun-10 11:21:46.446414 #1 [internal] load build definition from Dockerfile
+2025-Jun-10 11:21:46.446414 #1 transferring dockerfile: 1.56kB done
+2025-Jun-10 11:21:46.446414 #1 DONE 0.0s
+2025-Jun-10 11:21:46.446414
+2025-Jun-10 11:21:46.446414 #2 [internal] load metadata for docker.io/library/node:20-alpine
+2025-Jun-10 11:21:46.446414 #2 DONE 2.5s
+2025-Jun-10 11:21:46.446414
+2025-Jun-10 11:21:46.446414 #3 [internal] load .dockerignore
+2025-Jun-10 11:21:46.446414 #3 transferring context: 728B done
+2025-Jun-10 11:21:46.446414 #3 DONE 0.0s
+2025-Jun-10 11:21:46.446414
+2025-Jun-10 11:21:46.446414 #4 [ 1/14] FROM docker.io/library/node:20-alpine@sha256:d3507a213936fe4ef54760a186e113db5188472d9efdf491686bd94580a1c1e8
+2025-Jun-10 11:21:46.446414 #4 DONE 0.0s
+2025-Jun-10 11:21:46.446414
+2025-Jun-10 11:21:46.446414 #5 [internal] load build context
+2025-Jun-10 11:21:46.446414 #5 transferring context: 2.81MB 0.1s done
+2025-Jun-10 11:21:46.446414 #5 DONE 0.2s
+2025-Jun-10 11:21:46.446414
+2025-Jun-10 11:21:46.446414 #6 [ 3/14] WORKDIR /app
+2025-Jun-10 11:21:46.446414 #6 CACHED
+2025-Jun-10 11:21:46.446414
+2025-Jun-10 11:21:46.446414 #7 [ 4/14] COPY package*.json ./
+2025-Jun-10 11:21:46.446414 #7 CACHED
+2025-Jun-10 11:21:46.446414
+2025-Jun-10 11:21:46.446414 #8 [ 2/14] RUN apk add --no-cache libc6-compat curl dumb-init
+2025-Jun-10 11:21:46.446414 #8 CACHED
+2025-Jun-10 11:21:46.446414
+2025-Jun-10 11:21:46.446414 #9 [ 5/14] RUN npm ci --ignore-scripts && npm cache clean --force
+2025-Jun-10 11:21:46.446414 #9 CACHED
+2025-Jun-10 11:21:46.446414
+2025-Jun-10 11:21:46.446414 #10 [ 6/14] COPY . .
+2025-Jun-10 11:21:46.446414 #10 DONE 0.1s
+2025-Jun-10 11:21:46.446414
+2025-Jun-10 11:21:46.446414 #11 [ 7/14] RUN node build-fix-workspace-deps.js
+2025-Jun-10 11:21:46.446414 #11 0.094 🔧 Fixing workspace dependencies for Docker build...
+2025-Jun-10 11:21:46.446414 #11 0.096   ✅ Removed workspace dependency @leafyhealth/ui-kit from frontend/apps/super-admin
+2025-Jun-10 11:21:46.446414 #11 0.096   ✅ Removed workspace dependency @leafyhealth/api-client from frontend/apps/super-admin
+2025-Jun-10 11:21:46.446414 #11 0.096   ✅ Removed workspace dependency @leafyhealth/auth from frontend/apps/super-admin
+2025-Jun-10 11:21:46.446414 #11 0.096   ✅ Removed workspace dependency @leafyhealth/config from frontend/apps/super-admin
+2025-Jun-10 11:21:46.446414 #11 0.096   ✅ Removed workspace dependency @leafyhealth/utils from frontend/apps/super-admin
+2025-Jun-10 11:21:46.446414 #11 0.099   📝 Updated frontend/apps/super-admin/package.json
+2025-Jun-10 11:21:46.446414 #11 0.099   ✅ Removed workspace dependency @leafyhealth/ui-kit from frontend/apps/admin-portal
+2025-Jun-10 11:21:46.446414 #11 0.099   ✅ Removed workspace dependency @leafyhealth/api-client from frontend/apps/admin-portal
+2025-Jun-10 11:21:46.446414 #11 0.100   ✅ Removed workspace dependency @leafyhealth/auth from frontend/apps/admin-portal
+2025-Jun-10 11:21:46.446414 #11 0.100   ✅ Removed workspace dependency @leafyhealth/config from frontend/apps/admin-portal
+2025-Jun-10 11:21:46.446414 #11 0.100   ✅ Removed workspace dependency @leafyhealth/utils from frontend/apps/admin-portal
+2025-Jun-10 11:21:46.446414 #11 0.100   📝 Updated frontend/apps/admin-portal/package.json
+2025-Jun-10 11:21:46.446414 #11 0.101   ✅ Removed workspace dependency @leafyhealth/ui-kit from frontend/apps/ecommerce-web
+2025-Jun-10 11:21:46.446414 #11 0.101   ✅ Removed workspace dependency @leafyhealth/api-client from frontend/apps/ecommerce-web
+2025-Jun-10 11:21:46.446414 #11 0.101   ✅ Removed workspace dependency @leafyhealth/auth from frontend/apps/ecommerce-web
+2025-Jun-10 11:21:46.446414 #11 0.101   ✅ Removed workspace dependency @leafyhealth/config from frontend/apps/ecommerce-web
+2025-Jun-10 11:21:46.446414 #11 0.101   ✅ Removed workspace dependency @leafyhealth/utils from frontend/apps/ecommerce-web
+2025-Jun-10 11:21:46.446414 #11 0.102   📝 Updated frontend/apps/ecommerce-web/package.json
+2025-Jun-10 11:21:46.446414 #11 0.102   ✅ Removed workspace dependency @leafyhealth/ui-kit from frontend/apps/ecommerce-mobile
+2025-Jun-10 11:21:46.446414 #11 0.103   ✅ Removed workspace dependency @leafyhealth/api-client from frontend/apps/ecommerce-mobile
+2025-Jun-10 11:21:46.446414 #11 0.103   ✅ Removed workspace dependency @leafyhealth/auth from frontend/apps/ecommerce-mobile
+2025-Jun-10 11:21:46.446414 #11 0.103   ✅ Removed workspace dependency @leafyhealth/config from frontend/apps/ecommerce-mobile
+2025-Jun-10 11:21:46.446414 #11 0.103   ✅ Removed workspace dependency @leafyhealth/utils from frontend/apps/ecommerce-mobile
+2025-Jun-10 11:21:46.446414 #11 0.103   📝 Updated frontend/apps/ecommerce-mobile/package.json
+2025-Jun-10 11:21:46.446414 #11 0.103   ✅ Removed workspace dependency @leafyhealth/ui-kit from frontend/apps/ops-delivery
+2025-Jun-10 11:21:46.446414 #11 0.103   ✅ Removed workspace dependency @leafyhealth/api-client from frontend/apps/ops-delivery
+2025-Jun-10 11:21:46.446414 #11 0.103   ✅ Removed workspace dependency @leafyhealth/auth from frontend/apps/ops-delivery
+2025-Jun-10 11:21:46.446414 #11 0.104   ✅ Removed workspace dependency @leafyhealth/config from frontend/apps/ops-delivery
+2025-Jun-10 11:21:46.446414 #11 0.104   ✅ Removed workspace dependency @leafyhealth/utils from frontend/apps/ops-delivery
+2025-Jun-10 11:21:46.446414 #11 0.105   📝 Updated frontend/apps/ops-delivery/package.json
+2025-Jun-10 11:21:46.446414 #11 0.105 ✅ Workspace dependencies fixed for Docker build
+2025-Jun-10 11:21:46.446414 #11 DONE 0.1s
+2025-Jun-10 11:21:46.446414
+2025-Jun-10 11:21:46.446414 #12 [ 8/14] RUN cd frontend/apps/super-admin && npm install --legacy-peer-deps && npm run build
+2025-Jun-10 11:21:46.446414 #12 14.84 npm error code EUNSUPPORTEDPROTOCOL
+2025-Jun-10 11:21:46.446414 #12 14.84 npm error Unsupported URL Type "workspace:": workspace:*
+2025-Jun-10 11:21:46.446414 #12 14.85 npm error A complete log of this run can be found in: /root/.npm/_logs/2025-06-10T11_21_31_492Z-debug-0.log
+2025-Jun-10 11:21:46.446414 #12 ERROR: process "/bin/sh -c cd frontend/apps/super-admin && npm install --legacy-peer-deps && npm run build" did not complete successfully: exit code: 1
+2025-Jun-10 11:21:46.446414 ------
+2025-Jun-10 11:21:46.446414 > [ 8/14] RUN cd frontend/apps/super-admin && npm install --legacy-peer-deps && npm run build:
+2025-Jun-10 11:21:46.446414 14.84 npm error code EUNSUPPORTEDPROTOCOL
+2025-Jun-10 11:21:46.446414 14.84 npm error Unsupported URL Type "workspace:": workspace:*
+2025-Jun-10 11:21:46.446414 14.85 npm error A complete log of this run can be found in: /root/.npm/_logs/2025-06-10T11_21_31_492Z-debug-0.log
+2025-Jun-10 11:21:46.446414 ------
+2025-Jun-10 11:21:46.446414 Dockerfile:20
+2025-Jun-10 11:21:46.446414 --------------------
+2025-Jun-10 11:21:46.446414 18 |
+2025-Jun-10 11:21:46.446414 19 |     # Build frontend apps (workspace dependencies removed)
+2025-Jun-10 11:21:46.446414 20 | >>> RUN cd frontend/apps/super-admin && npm install --legacy-peer-deps && npm run build
+2025-Jun-10 11:21:46.446414 21 |     RUN cd frontend/apps/admin-portal && npm install --legacy-peer-deps && npm run build
+2025-Jun-10 11:21:46.446414 22 |     RUN cd frontend/apps/ecommerce-web && npm install --legacy-peer-deps && npm run build
+2025-Jun-10 11:21:46.446414 --------------------
+2025-Jun-10 11:21:46.446414 ERROR: failed to solve: process "/bin/sh -c cd frontend/apps/super-admin && npm install --legacy-peer-deps && npm run build" did not complete successfully: exit code: 1
+2025-Jun-10 11:21:46.446414 exit status 1
+2025-Jun-10 11:21:46.448849 Deployment failed. Removing the new version of your application.
+2025-Jun-10 11:21:46.835190 Gracefully shutting down build container: sk8okcg880gw88oosw8kgsok
+2025-Jun-10 11:21:47.080431 [CMD]: docker stop --time=30 sk8okcg880gw88oosw8kgsok
+2025-Jun-10 11:21:47.080431 sk8okcg880gw88oosw8kgsok
+2025-Jun-10 11:21:47.177342 [CMD]: docker rm -f sk8okcg880gw88oosw8kgsok
+2025-Jun-10 11:21:47.177342 Error response from daemon: No such container: sk8okcg880gw88oosw8kgsok 
