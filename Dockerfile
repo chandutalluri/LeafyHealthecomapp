@@ -6,15 +6,31 @@ RUN apk add --no-cache libc6-compat curl dumb-init
 
 WORKDIR /app
 
-# Copy and install dependencies
+# Copy package files first for better caching
 COPY package*.json ./
-RUN npm ci --production --ignore-scripts && npm cache clean --force
+COPY frontend/package.json frontend/
+COPY frontend/apps/*/package.json frontend/apps/*/
+
+# Install root dependencies
+RUN npm ci --ignore-scripts && npm cache clean --force
 
 # Copy application files
 COPY . .
 
-# Expose frontend ports
-EXPOSE 3000 3001 3002 3003 3004
+# Build frontend applications
+WORKDIR /app/frontend
+RUN npm install
+RUN cd apps/super-admin && npm install && npm run build
+RUN cd apps/admin-portal && npm install && npm run build  
+RUN cd apps/ecommerce-web && npm install && npm run build
+RUN cd apps/ecommerce-mobile && npm install && npm run build
+RUN cd apps/ops-delivery && npm install && npm run build
+
+# Return to app directory
+WORKDIR /app
+
+# Expose all ports
+EXPOSE 8080 3000 3001 3002 3003 3004
 
 # Create non-root user
 RUN addgroup --system --gid 1001 nodejs && \

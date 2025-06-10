@@ -92,12 +92,16 @@ class CompletePlatformStarter {
   }
 
   async startAllMicroservices() {
-    console.log(`🔧 Starting frontend applications...`);
+    console.log(`🔧 Configuring frontend applications...`);
     
-    // Start frontend applications
-    await this.startFrontendApps();
+    // In production (Coolify), start frontend applications
+    if (process.env.NODE_ENV === 'production' && !process.env.REPLIT_ENVIRONMENT) {
+      await this.startFrontendApps();
+    } else {
+      console.log(`📝 Development mode - using existing frontend workflows`);
+    }
     
-    console.log(`✅ All frontend applications started`);
+    console.log(`✅ All frontend applications configured`);
   }
 
   async startFrontendApps() {
@@ -116,8 +120,43 @@ class CompletePlatformStarter {
   }
 
   async startFrontendApp(app) {
-    // For production deployment, we'll serve built static files instead of running dev servers
-    console.log(`✅ ${app.name} configured for port ${app.port}`);
+    console.log(`🚀 Starting ${app.name} on port ${app.port}...`);
+    
+    const appProcess = spawn('npm', ['run', 'start'], {
+      cwd: app.path,
+      env: {
+        ...process.env,
+        PORT: app.port.toString(),
+        NODE_ENV: 'production'
+      },
+      stdio: ['ignore', 'pipe', 'pipe'],
+      shell: true
+    });
+
+    this.runningProcesses.push(appProcess);
+
+    appProcess.stdout.on('data', (data) => {
+      const output = data.toString();
+      if (output.includes('Ready') || output.includes('ready') || output.includes('Local:')) {
+        console.log(`✅ ${app.name} ready on port ${app.port}`);
+      }
+    });
+
+    appProcess.stderr.on('data', (data) => {
+      const error = data.toString();
+      if (!error.includes('ExperimentalWarning') && !error.includes('warning')) {
+        console.log(`[${app.name}] ${error.trim()}`);
+      }
+    });
+
+    appProcess.on('exit', (code) => {
+      if (code !== 0) {
+        console.log(`❌ ${app.name} exited with code ${code}`);
+      }
+    });
+
+    // Wait for the app to start
+    await this.delay(3000);
   }
 
 
