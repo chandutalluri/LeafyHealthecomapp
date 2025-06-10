@@ -1,44 +1,28 @@
 {
   "name": "leafyhealth-platform",
-  "description": "LeafyHealth Complete E-commerce Platform with 19 Microservices",
-  "framework": "node",
-  "buildpack": "dockerfile",
-  "dockerfile": "./Dockerfile",
-  "port": 8080,
-  "healthcheck": {
-    "enabled": true,
-    "path": "/health",
-    "interval": 30,
-    "timeout": 10,
-    "retries": 3,
-    "start_period": 20
+  "type": "application",
+  "framework": "nodejs",
+  "build": {
+    "command": "npm ci --production",
+    "outputDirectory": "."
   },
-  "environment": {
+  "start": {
+    "command": "node complete-platform-starter.js"
+  },
+  "env": {
     "NODE_ENV": "production",
     "PORT": "8080",
-    "NEXT_TELEMETRY_DISABLED": "1",
-    "NODE_OPTIONS": "--max_old_space_size=1024",
-    "UV_THREADPOOL_SIZE": "4"
+    "NEXT_TELEMETRY_DISABLED": "1"
   },
-  "required_secrets": [
-    "DATABASE_URL",
-    "JWT_SECRET",
-    "API_SECRET"
-  ],
-  "resources": {
-    "memory": "1GB",
-    "cpu": "1 vCPU",
-    "storage": "10GB"
-  },
-  "domains": [
+  "ports": [
     {
-      "domain": "yourdomain.com",
-      "ssl": true
+      "port": 8080,
+      "protocol": "http",
+      "public": true
     }
   ],
-  "monitoring": {
-    "status_endpoint": "/api/status",
-    "health_endpoint": "/health",
-    "metrics_endpoint": "/metrics"
+  "healthcheck": {
+    "path": "/health",
+    "port": 8080
   }
 }

@@ -155,13 +155,22 @@ class CompletePlatformStarter {
     console.log('🌐 Starting Integrated API Gateway on port 8080...');
     
     this.gatewayServer = http.createServer((req, res) => {
+      // Log all incoming requests for debugging
+      console.log(`${new Date().toISOString()} - ${req.method} ${req.url} from ${req.connection.remoteAddress}`);
       this.handleGatewayRequest(req, res);
     });
     
+    // Bind to all interfaces explicitly
     this.gatewayServer.listen(8080, '0.0.0.0', () => {
       console.log('🚀 Secure API Gateway running on port 8080');
       console.log('🔒 External access to microservice ports blocked');
       console.log(`🌐 Available routes: ${Object.keys(this.serviceRoutes).join(', ')}`);
+      console.log('📡 Gateway bound to 0.0.0.0:8080 for external access');
+    });
+    
+    // Add error handling
+    this.gatewayServer.on('error', (err) => {
+      console.error('❌ Gateway server error:', err);
     });
   }
 
@@ -186,7 +195,12 @@ class CompletePlatformStarter {
       res.end(JSON.stringify({
         status: 'healthy',
         services: this.services.length,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        network: {
+          host: req.headers.host,
+          userAgent: req.headers['user-agent'],
+          remoteAddress: req.connection.remoteAddress
+        }
       }));
       return;
     }

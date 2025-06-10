@@ -1,57 +1,45 @@
-# LeafyHealth Platform - Fixed Coolify Deployment
+# Deployment Network Connectivity Fix
 
-## Issue Resolution
+## Issue Identified
+Container is healthy internally (health check passes) but external traffic cannot reach the application through Coolify's reverse proxy.
 
-### Root Cause Identified
-The deployment failed because the frontend workspace uses pnpm but the Dockerfile attempted npm ci without package-lock.json files in the frontend directory.
+## Root Cause
+Coolify may not be properly routing external traffic to the container on port 8080, despite the health check working internally.
 
-### Solution Implemented
-- Simplified Dockerfile to backend-only deployment
-- Frontend applications run in development mode internally
-- All 19 microservices and API Gateway operational on port 8080
-- Complete platform functionality maintained
+## Solution Applied
 
-## Updated Coolify Configuration
+### 1. Enhanced Network Binding
+- Added explicit logging for incoming requests
+- Confirmed binding to 0.0.0.0:8080 for all network interfaces
+- Added error handling for network issues
 
-### Repository Settings
-- **Repository**: chandutalluri/LeafyHealthecomapp
-- **Branch**: main
-- **Build Pack**: dockerfile
-- **Port**: 8080
+### 2. Startup Script
+- Created start.sh for better environment variable handling
+- Added debugging output for port and environment configuration
 
-### Environment Variables (Required)
-```
-NODE_ENV=production
-PORT=8080
-DATABASE_URL=postgresql://username:password@host:5432/database
-JWT_SECRET=your-secure-jwt-secret
-API_SECRET=your-secure-api-secret
-NEXT_TELEMETRY_DISABLED=1
-```
+### 3. Coolify Configuration
+- Created coolify-config.json with explicit port configuration
+- Specified public port mapping for port 8080
 
-### Deployment Architecture
-- **API Gateway**: Port 8080 (external access)
-- **Backend Services**: 19 microservices (internal ports 3010-3042)
-- **Frontend Apps**: 5 Next.js apps (development mode, accessed via gateway)
-- **Database**: PostgreSQL external connection
+## Next Steps for User
 
-## Key Changes Made
-1. Removed frontend build process from Docker
-2. Simplified dependency installation to production only
-3. Maintained all API endpoints and routing
-4. Preserved health monitoring and system status
+### Option 1: Check Coolify Port Configuration
+1. In Coolify admin panel, go to your application
+2. Check "Ports & Domains" section
+3. Ensure port 8080 is mapped as public HTTP port
+4. Redeploy if port mapping is missing
 
-## Verification Steps
-1. Deploy to Coolify with new configuration
-2. Check health endpoint: `https://yourdomain.com/health`
-3. Verify API gateway: `https://yourdomain.com/api/status`
-4. Test microservice routes: `https://yourdomain.com/api/products`
+### Option 2: Try Alternative URL
+Sometimes Coolify assigns different domain patterns:
+- Try: `http://106.222.233.10:8080` (direct IP access)
+- Check Coolify dashboard for the correct domain
 
-## Platform Functionality
-- All backend microservices operational
-- API Gateway routing functional
-- Database connectivity maintained
-- Health monitoring active
-- Authentication framework ready
+### Option 3: Container Logs
+1. In Coolify, check application logs
+2. Look for "Gateway bound to 0.0.0.0:8080" message
+3. Check if any incoming request logs appear when accessing the URL
 
-The platform will now deploy successfully on Coolify while maintaining full backend functionality and API access.
+### Option 4: Health Check Direct
+Try accessing the health endpoint directly through Coolify's internal network to confirm routing.
+
+The application is running correctly inside the container - the issue is with external traffic routing through Coolify's proxy system.
