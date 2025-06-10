@@ -25,6 +25,7 @@
     "@leafyhealth/ui-kit": "workspace:*",
     "@leafyhealth/api-client": "workspace:*",
     "@leafyhealth/auth": "workspace:*",
+    "@leafyhealth/domain-registry": "workspace:*",
     "@leafyhealth/config": "workspace:*",
     "@leafyhealth/utils": "workspace:*"
   },

@@ -1,22 +1,15 @@
-[variables]
-NODE_ENV = "production"
-PORT = "8080"
-NPM_CONFIG_PRODUCTION = "false"
-
-[build]
-nixPkgs = ["nodejs", "npm"]
+[phases.setup]
+nixPkgs = ["nodejs-20_x", "npm"]
 
 [phases.install]
-cmds = [
-  "npm ci",
-  "cd frontend && npm ci || echo 'Frontend dependencies installed'"
-]
+cmds = ["npm ci"]
 
 [phases.build]
-cmds = [
-  "cd frontend && npm run build || echo 'Frontend build completed'",
-  "echo 'Platform build ready'"
-]
+cmds = ["npm run build"]
 
 [start]
 cmd = "node complete-platform-starter.js"
+
+[variables]
+NODE_ENV = "production"
+PORT = "8080"

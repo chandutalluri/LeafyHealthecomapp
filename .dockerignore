@@ -1,66 +1,79 @@
-# Node.js dependencies and cache
+# Dependencies
 node_modules
-*/node_modules
+frontend/apps/*/node_modules
+frontend/packages/*/node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-.npm
-.pnpm-store
 
-# Build outputs and cache
+# Build outputs
 .next
-*/.next
+frontend/apps/*/.next
 dist
 build
 out
-.turbo
-.cache
 
-# Development and testing
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
 coverage
 *.lcov
-test-results
-playwright-report
 
-# Environment and secrets
-.env.local
-.env.development
-.env.test
-!.env.production
+# Environment variables
+.env
+.env.*
+!.env.example
 
-# IDE and OS files
+# IDE files
 .vscode
 .idea
 *.swp
 *.swo
+
+# OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
-# Git and version control
+# Git
 .git
 .gitignore
 
-# Logs and temporary files
+# Logs
 logs
 *.log
+
+# Temporary folders
 tmp
 temp
-pids
-*.pid
-*.seed
 
-# Documentation and scripts
+# Cache directories
+.cache
+.turbo
+
+# Test coverage
+coverage
+
+# Development files
+*.development
+*.local
+
+# Documentation
 docs
 README.md
+
+# Scripts (not needed in production)
 scripts
-*.md
 
-# Replit specific
-.replit
-replit.nix
-
-# Large files and binaries
+# Large binary files
 *.pack
 *.idx
-*.tar.gz
